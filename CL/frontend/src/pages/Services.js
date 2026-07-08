@@ -1,9 +1,14 @@
 import React from 'react';
 import usePageData from '../hooks/usePageData';
-import LoadingScreen from '../components/LoadingScreen';
+const SERVICE_BANNER_SRC = '/images/service-banner-hero.webp';
+
+if (typeof window !== 'undefined') {
+    const serviceBannerPreload = new Image();
+    serviceBannerPreload.src = SERVICE_BANNER_SRC;
+}
 
 function Services() {
-    const { page, loading, error } = usePageData('services');
+    const { page } = usePageData('services');
 
     // Fallback hardcoded data
     const heroTitle = page?.heroTitle || 'Our Services';
@@ -18,30 +23,13 @@ function Services() {
         { number: '06', title: 'Supplier Compliance', desc: 'Our compliance department ensures adherence to international standards and customer requirements.' }
     ];
 
-    if (loading) {
-        return <LoadingScreen message="Loading..." />;
-    }
-
-    if (error) {
-        return (
-            <div className="loading-screen">
-                <div className="loading-screen-error">
-                    <p>Unable to load page content. Please check your connection and try again.</p>
-                    <button className="loading-screen-retry" onClick={() => window.location.reload()}>
-                        Retry
-                    </button>
-                </div>
-            </div>
-        );
-    }
-
     return (
         <main className="services-modern">
             {/* ===== HERO ===== */}
             <section className="services-modern-hero">
                 <div className="services-modern-hero-bg">
                     <div className="services-modern-hero-banner">
-                        <img src="/images/service-banner.jpeg" alt="Leather Gateway services" loading="eager" decoding="async" />
+                        <img src={SERVICE_BANNER_SRC} alt="Leather Gateway services" loading="eager" fetchPriority="high" decoding="async" width="1349" height="900" />
                         <div className="services-modern-hero-overlay">
                             <div className="container">
                                 <div className="services-modern-hero-content">
