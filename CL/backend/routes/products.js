@@ -27,21 +27,33 @@ const leatherHandbagsProduct = {
     ]
 };
 
-function ensureLeatherHandbagsProduct(products) {
-    const hasLeatherHandbags = products.some(product => product.title?.toLowerCase() === 'leather handbags');
-    return hasLeatherHandbags ? products : [...products, leatherHandbagsProduct];
+function mapProductRow(row) {
+    return {
+        _id: row._id,
+        title: row.title,
+        images: row.images || []
+    };
+}
+
+async function ensureLeatherHandbagsProductInDb() {
+    const result = await pool.query(
+        `INSERT INTO products (_id, title, images)
+         VALUES ($1, $2, $3)
+         ON CONFLICT (_id) DO NOTHING
+         RETURNING *`,
+        [leatherHandbagsProduct._id, leatherHandbagsProduct.title, JSON.stringify(leatherHandbagsProduct.images)]
+    );
+
+    return result.rows[0] ? mapProductRow(result.rows[0]) : null;
 }
 
 // @route   GET /api/products
 router.get('/', async (req, res) => {
     try {
+        await ensureLeatherHandbagsProductInDb();
         const result = await pool.query('SELECT * FROM products ORDER BY id ASC');
-        const products = result.rows.map(row => ({
-            _id: row._id,
-            title: row.title,
-            images: row.images || []
-        }));
-        res.json({ success: true, data: ensureLeatherHandbagsProduct(products) });
+        const products = result.rows.map(mapProductRow);
+        res.json({ success: true, data: products });
     } catch (error) {
         console.error('Error fetching products:', error);
         res.status(500).json({ success: false, message: 'Server error' });
@@ -56,7 +68,7 @@ router.get('/:id', async (req, res) => {
             return res.status(404).json({ success: false, message: 'Product not found' });
         }
         const row = result.rows[0];
-        res.json({ success: true, data: { _id: row._id, title: row.title, images: row.images || [] } });
+        res.json({ success: true, data: mapProductRow(row) });
     } catch (error) {
         res.status(500).json({ success: false, message: 'Server error' });
     }
@@ -78,7 +90,7 @@ router.post('/', authMiddleware, async (req, res) => {
         res.status(201).json({
             success: true,
             message: 'Product created',
-            data: { _id: row._id, title: row.title, images: row.images || [] }
+            data: mapProductRow(row)
         });
     } catch (error) {
         console.error('Error creating product:', error);
@@ -92,7 +104,24 @@ router.put('/:id', authMiddleware, async (req, res) => {
         const { title, images } = req.body;
         const existing = await pool.query('SELECT * FROM products WHERE _id = $1', [req.params.id]);
         if (existing.rows.length === 0) {
-            return res.status(404).json({ success: false, message: 'Product not found' });
+            if (req.params.id !== leatherHandbagsProduct._id) {
+                return res.status(404).json({ success: false, message: 'Product not found' });
+            }
+
+            const result = await pool.query(
+                'INSERT INTO products (_id, title, images) VALUES ($1, $2, $3) RETURNING *',
+                [
+                    leatherHandbagsProduct._id,
+                    title || leatherHandbagsProduct.title,
+                    JSON.stringify(images || leatherHandbagsProduct.images)
+                ]
+            );
+            const row = result.rows[0];
+            return res.json({
+                success: true,
+                message: 'Product saved',
+                data: mapProductRow(row)
+            });
         }
 
         const updates = [];
@@ -123,7 +152,7 @@ router.put('/:id', authMiddleware, async (req, res) => {
         res.json({
             success: true,
             message: 'Product updated',
-            data: { _id: row._id, title: row.title, images: row.images || [] }
+            data: mapProductRow(row)
         });
     } catch (error) {
         console.error('Error updating product:', error);
@@ -136,6 +165,9 @@ router.delete('/:id', authMiddleware, async (req, res) => {
     try {
         const result = await pool.query('DELETE FROM products WHERE _id = $1 RETURNING *', [req.params.id]);
         if (result.rows.length === 0) {
+            if (req.params.id === leatherHandbagsProduct._id) {
+                return res.json({ success: true, message: 'Product deleted', data: { _id: req.params.id } });
+            }
             return res.status(404).json({ success: false, message: 'Product not found' });
         }
         res.json({ success: true, message: 'Product deleted', data: { _id: result.rows[0]._id } });
