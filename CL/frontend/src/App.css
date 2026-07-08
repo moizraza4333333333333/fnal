@@ -1360,13 +1360,26 @@ img {
   color: var(--nv-text-color);
 }
 
-.contact-info-card a {
-  color: var(--nv-primary-accent);
-  font-weight: 700;
+.contact-info-card-link {
+  color: var(--nv-text-color);
+  cursor: pointer;
+  display: block;
   text-decoration: none;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
 }
 
-.contact-info-card a:hover {
+.contact-info-card-link:hover {
+  box-shadow: 0 14px 34px rgba(32, 91, 87, 0.12);
+  color: var(--nv-text-color);
+  transform: translateY(-4px);
+}
+
+.contact-info-card-link span {
+  color: var(--nv-primary-accent);
+  font-weight: 700;
+}
+
+.contact-info-card-link:hover span {
   color: var(--nv-secondary-accent);
 }
 

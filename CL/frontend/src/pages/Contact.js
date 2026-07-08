@@ -79,7 +79,7 @@ function Contact() {
             <section className="contact-info-section">
                 <div className="container">
                     <div className="contact-info-grid">
-                        <div className="contact-info-card">
+                        <a className="contact-info-card contact-info-card-link" href={whatsappUrl} target="_blank" rel="noopener noreferrer" aria-label={`Open WhatsApp for ${phone}`}>
                             <img
                                 src="/images/neve-marketing-icon-13.png"
                                 alt="Call us"
@@ -87,14 +87,12 @@ function Contact() {
                             />
                             <h3>Call us</h3>
                             <p>
-                                <a href={whatsappUrl} target="_blank" rel="noopener noreferrer">
-                                    {phone}
-                                </a>
+                                <span>{phone}</span>
                                 {phoneLabel ? ` | ${phoneLabel}` : ''}
                             </p>
-                        </div>
+                        </a>
 
-                        <div className="contact-info-card">
+                        <a className="contact-info-card contact-info-card-link" href={gmailUrl} target="_blank" rel="noopener noreferrer" aria-label={`Open Gmail for ${email}`}>
                             <img
                                 src="/images/neve-marketing-icon-11.png"
                                 alt="Email"
@@ -102,11 +100,9 @@ function Contact() {
                             />
                             <h3>Email</h3>
                             <p>
-                                <a href={gmailUrl} target="_blank" rel="noopener noreferrer">
-                                    {email}
-                                </a>
+                                <span>{email}</span>
                             </p>
-                        </div>
+                        </a>
 
                         <div className="contact-info-card">
                             <img
