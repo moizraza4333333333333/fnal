@@ -1805,16 +1805,30 @@ img {
 }
 
 @media (max-width: 768px) {
+  .services-modern-hero-banner {
+    background: #111;
+  }
+
   .services-modern-hero-banner img {
-    max-height: 400px;
+    height: auto;
+    max-height: none;
+    object-fit: contain;
+  }
+
+  .services-modern-hero-overlay {
+    align-items: flex-end;
+    background: linear-gradient(180deg, rgba(0, 0, 0, 0.18) 0%, rgba(0, 0, 0, 0.72) 100%);
+    padding: 34px 0;
   }
 
   .services-modern-title {
     font-size: 32px;
+    margin-bottom: 12px;
   }
 
   .services-modern-subtitle {
-    font-size: 16px;
+    font-size: 15px;
+    line-height: 1.55;
   }
 
   .services-modern-flow {
