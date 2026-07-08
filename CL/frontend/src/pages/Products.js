@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import LoadingScreen from '../components/LoadingScreen';
+import resolveImageUrl from '../utils/resolveImageUrl';
 
 const API_URL = process.env.REACT_APP_API_URL || '';
 
@@ -12,7 +13,7 @@ function Lightbox({ images, currentIndex, productTitle, onClose, onPrev, onNext 
             )}
             <img
                 className="lightbox-image"
-                src={images[currentIndex]}
+                src={resolveImageUrl(images[currentIndex], { width: 1400 })}
                 alt={`${productTitle} ${currentIndex + 1}`}
                 onClick={(e) => e.stopPropagation()}
             />
@@ -115,7 +116,7 @@ function Products() {
                                     onClick={() => openLightbox(product, 0)}
                                     title="Click to view gallery"
                                 >
-                                    <img src={product.images[0]} alt={product.title} loading="lazy" decoding="async" />
+                                    <img src={resolveImageUrl(product.images[0], { width: 520 })} alt={product.title} loading="lazy" decoding="async" />
                                     <div className="single-product-card-name">{product.title}</div>
                                 </div>
                             ))}
