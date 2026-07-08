@@ -42,12 +42,14 @@ function Services() {
                 <div className="services-modern-hero-bg">
                     <div className="services-modern-hero-banner">
                         <img src="/images/service-banner.jpeg" alt="Leather Gateway services" loading="eager" decoding="async" />
-                    </div>
-                    <div className="container services-modern-hero-inner">
-                        <div className="services-modern-hero-content">
-                            <span className="services-modern-badge">What We Do</span>
-                            <h1 className="services-modern-title">{heroTitle}</h1>
-                            <p className="services-modern-subtitle">{heroLead}</p>
+                        <div className="services-modern-hero-overlay">
+                            <div className="container">
+                                <div className="services-modern-hero-content">
+                                    <span className="services-modern-badge">What We Do</span>
+                                    <h1 className="services-modern-title">{heroTitle}</h1>
+                                    <p className="services-modern-subtitle">{heroLead}</p>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
