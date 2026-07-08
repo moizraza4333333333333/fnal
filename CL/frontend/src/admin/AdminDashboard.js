@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { useAuth } from '../context/AuthContext';
 import { Link } from 'react-router-dom';
 import './admin.css';
@@ -10,6 +10,18 @@ function AdminDashboard() {
     const [pages, setPages] = useState([]);
     const [settings, setSettings] = useState(null);
     const [messages, setMessages] = useState([]);
+    const [messageFilter, setMessageFilter] = useState('unread');
+
+    const loadMessages = useCallback(() => {
+        fetch(`${API_URL}/api/contact?status=${messageFilter}`, {
+            headers: { Authorization: `Bearer ${token}` }
+        })
+            .then(res => res.json())
+            .then(data => {
+                if (data.success) setMessages(data.data);
+            })
+            .catch(console.error);
+    }, [messageFilter, token]);
 
     useEffect(() => {
         fetch(`${API_URL}/api/pages`, {
@@ -29,16 +41,38 @@ function AdminDashboard() {
                 if (data.success) setSettings(data.data);
             })
             .catch(console.error);
-
-        fetch(`${API_URL}/api/contact`, {
-            headers: { Authorization: `Bearer ${token}` }
-        })
-            .then(res => res.json())
-            .then(data => {
-                if (data.success) setMessages(data.data);
-            })
-            .catch(console.error);
     }, [token]);
+
+    useEffect(() => {
+        loadMessages();
+    }, [loadMessages]);
+
+    const markMessageAsRead = async (id) => {
+        try {
+            const res = await fetch(`${API_URL}/api/contact/${id}/read`, {
+                method: 'PATCH',
+                headers: { Authorization: `Bearer ${token}` }
+            });
+            const data = await res.json();
+            if (data.success) loadMessages();
+        } catch (error) {
+            console.error(error);
+        }
+    };
+
+    const removeMessage = async (id) => {
+        if (!window.confirm('Remove this contact message?')) return;
+        try {
+            const res = await fetch(`${API_URL}/api/contact/${id}`, {
+                method: 'DELETE',
+                headers: { Authorization: `Bearer ${token}` }
+            });
+            const data = await res.json();
+            if (data.success) loadMessages();
+        } catch (error) {
+            console.error(error);
+        }
+    };
 
     return (
         <div className="admin-layout">
@@ -78,7 +112,7 @@ function AdminDashboard() {
                     </div>
                     <div className="admin-stat-card">
                         <div className="admin-stat-value">{messages.length}</div>
-                        <div className="admin-stat-label">Contact Messages</div>
+                        <div className="admin-stat-label">Visible Messages</div>
                     </div>
                     <div className="admin-stat-card">
                         <div className="admin-stat-value">Online</div>
@@ -94,30 +128,58 @@ function AdminDashboard() {
                             <Link to={`/admin/pages/${page.id}`} key={page.id} className="admin-page-card">
                                 <h3>{page.title}</h3>
                                 <span className="admin-page-slug">/{page.slug}</span>
-                                <span className="admin-page-edit">Click to Edit →</span>
+                                <span className="admin-page-edit">Click to Edit</span>
                             </Link>
                         ))}
                     </div>
                 </div>
 
                 <div className="admin-section">
-                    <h2>Contact Messages</h2>
-                    <p>Latest messages received from the public contact form.</p>
+                    <div className="admin-section-head">
+                        <div>
+                            <h2>Contact Messages</h2>
+                            <p>View unread, read, or all messages received from the public contact form.</p>
+                        </div>
+                        <div className="admin-filter-tabs">
+                            <button className={messageFilter === 'unread' ? 'active' : ''} onClick={() => setMessageFilter('unread')}>Unread</button>
+                            <button className={messageFilter === 'read' ? 'active' : ''} onClick={() => setMessageFilter('read')}>Read</button>
+                            <button className={messageFilter === 'all' ? 'active' : ''} onClick={() => setMessageFilter('all')}>All</button>
+                        </div>
+                    </div>
                     {messages.length === 0 ? (
-                        <div className="admin-empty-card">No contact messages yet.</div>
+                        <div className="admin-empty-card">No contact messages in this view.</div>
                     ) : (
                         <div className="admin-messages-list">
                             {messages.map(message => (
-                                <div className="admin-message-card" key={message.id}>
+                                <div className={`admin-message-card ${message.is_read ? 'is-read' : 'is-unread'}`} key={message.id}>
                                     <div className="admin-message-head">
                                         <div>
                                             <h3>{message.name}</h3>
                                             <span>{new Date(message.created_at).toLocaleString()}</span>
                                         </div>
-                                        <a href={`mailto:${message.email}`}>{message.email}</a>
+                                        <span className={`admin-message-status ${message.is_read ? 'read' : 'unread'}`}>
+                                            {message.is_read ? 'Read' : 'Unread'}
+                                        </span>
                                     </div>
-                                    {message.phone && <a className="admin-message-phone" href={`https://wa.me/${message.phone.replace(/\D/g, '')}`} target="_blank" rel="noopener noreferrer">{message.phone}</a>}
+                                    <div className="admin-message-links">
+                                        <a href={`mailto:${message.email}`}>{message.email}</a>
+                                        {message.phone && (
+                                            <a href={`https://wa.me/${message.phone.replace(/\D/g, '')}`} target="_blank" rel="noopener noreferrer">
+                                                {message.phone}
+                                            </a>
+                                        )}
+                                    </div>
                                     <p>{message.message}</p>
+                                    <div className="admin-message-actions">
+                                        {!message.is_read && (
+                                            <button className="admin-btn admin-btn-primary admin-btn-sm" onClick={() => markMessageAsRead(message.id)}>
+                                                Mark as Read
+                                            </button>
+                                        )}
+                                        <button className="admin-btn admin-btn-danger admin-btn-sm" onClick={() => removeMessage(message.id)}>
+                                            Remove
+                                        </button>
+                                    </div>
                                 </div>
                             ))}
                         </div>

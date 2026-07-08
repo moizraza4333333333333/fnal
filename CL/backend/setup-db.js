@@ -62,6 +62,7 @@ async function setupDatabase() {
                 email VARCHAR(255) NOT NULL,
                 phone VARCHAR(100),
                 message TEXT NOT NULL,
+                is_read BOOLEAN DEFAULT FALSE,
                 created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
             );
         `);

@@ -14,15 +14,54 @@ function authMiddleware(req, res, next) {
     }
 }
 
+async function ensureContactMessageColumns() {
+    await pool.query('ALTER TABLE contact_messages ADD COLUMN IF NOT EXISTS is_read BOOLEAN DEFAULT FALSE');
+}
+
 // @route   GET /api/contact
 router.get('/', authMiddleware, async (req, res) => {
     try {
+        await ensureContactMessageColumns();
+        const { status } = req.query;
+        const whereClause = status === 'read' ? 'WHERE is_read = TRUE' : status === 'unread' ? 'WHERE is_read = FALSE' : '';
         const result = await pool.query(
-            'SELECT id, name, email, phone, message, created_at FROM contact_messages ORDER BY created_at DESC LIMIT 100'
+            `SELECT id, name, email, phone, message, is_read, created_at FROM contact_messages ${whereClause} ORDER BY created_at DESC LIMIT 100`
         );
         res.json({ success: true, data: result.rows });
     } catch (error) {
         console.error('Error fetching contact messages:', error);
+        res.status(500).json({ success: false, message: 'Server error' });
+    }
+});
+
+// @route   PATCH /api/contact/:id/read
+router.patch('/:id/read', authMiddleware, async (req, res) => {
+    try {
+        await ensureContactMessageColumns();
+        const result = await pool.query(
+            'UPDATE contact_messages SET is_read = TRUE WHERE id = $1 RETURNING id, name, email, phone, message, is_read, created_at',
+            [req.params.id]
+        );
+        if (result.rows.length === 0) {
+            return res.status(404).json({ success: false, message: 'Message not found' });
+        }
+        res.json({ success: true, message: 'Message marked as read', data: result.rows[0] });
+    } catch (error) {
+        console.error('Error marking contact message as read:', error);
+        res.status(500).json({ success: false, message: 'Server error' });
+    }
+});
+
+// @route   DELETE /api/contact/:id
+router.delete('/:id', authMiddleware, async (req, res) => {
+    try {
+        const result = await pool.query('DELETE FROM contact_messages WHERE id = $1 RETURNING id', [req.params.id]);
+        if (result.rows.length === 0) {
+            return res.status(404).json({ success: false, message: 'Message not found' });
+        }
+        res.json({ success: true, message: 'Message removed', data: { id: result.rows[0].id } });
+    } catch (error) {
+        console.error('Error deleting contact message:', error);
         res.status(500).json({ success: false, message: 'Server error' });
     }
 });

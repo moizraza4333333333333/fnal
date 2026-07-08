@@ -645,12 +645,50 @@
     background: #c0392b;
 }
 
+.admin-section-head {
+    align-items: flex-start;
+    display: flex;
+    gap: 16px;
+    justify-content: space-between;
+    margin-bottom: 18px;
+}
+
+.admin-filter-tabs {
+    background: #fff;
+    border: 1px solid #e8e8e8;
+    border-radius: 10px;
+    display: inline-flex;
+    overflow: hidden;
+}
+
+.admin-filter-tabs button {
+    background: transparent;
+    border: 0;
+    color: #555;
+    cursor: pointer;
+    font-weight: 600;
+    padding: 9px 14px;
+}
+
+.admin-filter-tabs button.active {
+    background: #205b57;
+    color: #fff;
+}
+
 .admin-empty-card,
 .admin-message-card {
     background: #fff;
     border: 1px solid #e8e8e8;
     border-radius: 10px;
     padding: 18px;
+}
+
+.admin-message-card.is-unread {
+    border-left: 4px solid #205b57;
+}
+
+.admin-message-card.is-read {
+    opacity: 0.78;
 }
 
 .admin-messages-list {
@@ -677,8 +715,33 @@
     font-size: 13px;
 }
 
-.admin-message-head a,
-.admin-message-phone {
+.admin-message-status {
+    border-radius: 999px;
+    font-size: 11px !important;
+    font-weight: 700;
+    height: fit-content;
+    padding: 5px 10px;
+    text-transform: uppercase;
+}
+
+.admin-message-status.unread {
+    background: #e8f4f2;
+    color: #205b57;
+}
+
+.admin-message-status.read {
+    background: #f0f0f0;
+    color: #777;
+}
+
+.admin-message-links,
+.admin-message-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.admin-message-links a {
     color: #205b57;
     font-weight: 600;
     text-decoration: none;
@@ -687,7 +750,7 @@
 .admin-message-card p {
     color: #555;
     line-height: 1.6;
-    margin: 10px 0 0;
+    margin: 10px 0 14px;
 }
 
 /* Form actions row */
@@ -719,5 +782,9 @@
 
     .admin-pages-grid {
         grid-template-columns: 1fr;
+    }
+
+    .admin-section-head {
+        flex-direction: column;
     }
 }
