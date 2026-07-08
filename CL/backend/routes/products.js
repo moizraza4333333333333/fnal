@@ -14,18 +14,34 @@ function authMiddleware(req, res, next) {
     }
 }
 
-const leatherHandbagsProduct = {
-    _id: 'prod_leather_handbags',
-    title: 'LEATHER HANDBAGS',
-    images: [
-        '/images/LEATHER HANDBAGS/optimized/IMG-20260708-WA0049.webp',
-        '/images/LEATHER HANDBAGS/optimized/IMG-20260708-WA0050.webp',
-        '/images/LEATHER HANDBAGS/optimized/IMG-20260708-WA0053.webp',
-        '/images/LEATHER HANDBAGS/optimized/IMG-20260708-WA0055.webp',
-        '/images/LEATHER HANDBAGS/optimized/IMG-20260708-WA0056.webp',
-        '/images/LEATHER HANDBAGS/optimized/IMG-20260708-WA0057.webp'
-    ]
-};
+const defaultProducts = [
+    {
+        _id: 'prod_2',
+        title: 'LEATHER APRONS',
+        images: [
+            '/images/LEATHER APRONS/pexels-cottonbro-6653234.jpg.jpeg',
+            '/images/updated aprons/optimized/IMG-20260708-WA0017.webp',
+            '/images/updated aprons/optimized/IMG-20260708-WA0018.webp',
+            '/images/updated aprons/optimized/IMG-20260708-WA0019.webp',
+            '/images/updated aprons/optimized/IMG-20260708-WA0020.webp',
+            '/images/updated aprons/optimized/IMG-20260708-WA0021.webp'
+        ]
+    },
+    {
+        _id: 'prod_leather_handbags',
+        title: 'LEATHER HANDBAGS',
+        images: [
+            '/images/LEATHER HANDBAGS/optimized/IMG-20260708-WA0049.webp',
+            '/images/LEATHER HANDBAGS/optimized/IMG-20260708-WA0050.webp',
+            '/images/LEATHER HANDBAGS/optimized/IMG-20260708-WA0053.webp',
+            '/images/LEATHER HANDBAGS/optimized/IMG-20260708-WA0055.webp',
+            '/images/LEATHER HANDBAGS/optimized/IMG-20260708-WA0056.webp',
+            '/images/LEATHER HANDBAGS/optimized/IMG-20260708-WA0057.webp'
+        ]
+    }
+];
+
+const leatherHandbagsProduct = defaultProducts.find(product => product._id === 'prod_leather_handbags');
 
 function mapProductRow(row) {
     return {
@@ -35,22 +51,38 @@ function mapProductRow(row) {
     };
 }
 
-async function ensureLeatherHandbagsProductInDb() {
-    const result = await pool.query(
-        `INSERT INTO products (_id, title, images)
-         VALUES ($1, $2, $3)
-         ON CONFLICT (_id) DO NOTHING
-         RETURNING *`,
-        [leatherHandbagsProduct._id, leatherHandbagsProduct.title, JSON.stringify(leatherHandbagsProduct.images)]
-    );
+async function ensureDefaultProductInDb(defaultProduct) {
+    const existing = await pool.query('SELECT * FROM products WHERE _id = $1', [defaultProduct._id]);
+    if (existing.rows.length === 0) {
+        const result = await pool.query(
+            'INSERT INTO products (_id, title, images) VALUES ($1, $2, $3) RETURNING *',
+            [defaultProduct._id, defaultProduct.title, JSON.stringify(defaultProduct.images)]
+        );
+        return mapProductRow(result.rows[0]);
+    }
 
-    return result.rows[0] ? mapProductRow(result.rows[0]) : null;
+    const row = existing.rows[0];
+    const currentImages = row.images || [];
+    const mergedImages = [...currentImages, ...defaultProduct.images.filter(image => !currentImages.includes(image))];
+    if (mergedImages.length !== currentImages.length) {
+        const result = await pool.query(
+            'UPDATE products SET images = $1, updated_at = CURRENT_TIMESTAMP WHERE _id = $2 RETURNING *',
+            [JSON.stringify(mergedImages), defaultProduct._id]
+        );
+        return mapProductRow(result.rows[0]);
+    }
+
+    return mapProductRow(row);
+}
+
+async function ensureDefaultProductsInDb() {
+    await Promise.all(defaultProducts.map(ensureDefaultProductInDb));
 }
 
 // @route   GET /api/products
 router.get('/', async (req, res) => {
     try {
-        await ensureLeatherHandbagsProductInDb();
+        await ensureDefaultProductsInDb();
         const result = await pool.query('SELECT * FROM products ORDER BY id ASC');
         const products = result.rows.map(mapProductRow);
         res.json({ success: true, data: products });
@@ -104,16 +136,17 @@ router.put('/:id', authMiddleware, async (req, res) => {
         const { title, images } = req.body;
         const existing = await pool.query('SELECT * FROM products WHERE _id = $1', [req.params.id]);
         if (existing.rows.length === 0) {
-            if (req.params.id !== leatherHandbagsProduct._id) {
+            const defaultProduct = defaultProducts.find(product => product._id === req.params.id);
+            if (!defaultProduct) {
                 return res.status(404).json({ success: false, message: 'Product not found' });
             }
 
             const result = await pool.query(
                 'INSERT INTO products (_id, title, images) VALUES ($1, $2, $3) RETURNING *',
                 [
-                    leatherHandbagsProduct._id,
-                    title || leatherHandbagsProduct.title,
-                    JSON.stringify(images || leatherHandbagsProduct.images)
+                    defaultProduct._id,
+                    title || defaultProduct.title,
+                    JSON.stringify(images || defaultProduct.images)
                 ]
             );
             const row = result.rows[0];

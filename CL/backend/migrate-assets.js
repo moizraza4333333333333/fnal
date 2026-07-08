@@ -54,7 +54,7 @@ async function migrateProductImages() {
     console.log('\n=== STEP 1: Product Images ===');
 
     const productFolders = [
-        'LEATHER BELTS', 'LEATHER APRONS', 'LEATHER GLOVES',
+        'LEATHER BELTS', 'LEATHER APRONS', 'updated aprons/optimized', 'LEATHER GLOVES',
         'LEATHER HANDBAGS/optimized', 'LEATHER JACKETS', 'LEATHER TABLE COASTERS',
         'LEATHER TABLE MATS', 'LEATHER WALLETS', 'Server books', 'leather-belts'
     ];
