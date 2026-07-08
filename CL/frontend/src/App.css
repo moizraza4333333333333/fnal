@@ -1816,19 +1816,33 @@ img {
   }
 
   .services-modern-hero-overlay {
-    align-items: flex-end;
-    background: linear-gradient(180deg, rgba(0, 0, 0, 0.18) 0%, rgba(0, 0, 0, 0.72) 100%);
-    padding: 34px 0;
+    align-items: center;
+    background: rgba(0, 0, 0, 0.58);
+    padding: 18px 0;
+  }
+
+  .services-modern-hero-content {
+    max-width: 100%;
+    text-align: center;
+  }
+
+  .services-modern-badge {
+    font-size: 10px;
+    letter-spacing: 1.2px;
+    margin-bottom: 10px;
+    padding: 5px 12px;
   }
 
   .services-modern-title {
-    font-size: 32px;
-    margin-bottom: 12px;
+    font-size: 26px;
+    margin-bottom: 8px;
   }
 
   .services-modern-subtitle {
-    font-size: 15px;
-    line-height: 1.55;
+    font-size: 13px;
+    line-height: 1.45;
+    margin: 0 auto;
+    max-width: 95%;
   }
 
   .services-modern-flow {
@@ -1863,6 +1877,24 @@ img {
 
   .services-modern-video-section {
     padding: 40px 0;
+  }
+}
+
+@media (max-width: 420px) {
+  .services-modern-badge {
+    font-size: 9px;
+    margin-bottom: 7px;
+    padding: 4px 10px;
+  }
+
+  .services-modern-title {
+    font-size: 22px;
+    margin-bottom: 6px;
+  }
+
+  .services-modern-subtitle {
+    font-size: 12px;
+    line-height: 1.35;
   }
 }
 
