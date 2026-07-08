@@ -37,6 +37,9 @@ function Contact() {
     const phoneLabel = page?.phoneLabel || 'Monday – Friday';
     const email = page?.email || 'info@leathergateway.com';
     const address = page?.address || '2982 Sun Valley Road, Washington';
+    const phoneDigits = phone.replace(/\D/g, '');
+    const whatsappUrl = phoneDigits ? `https://wa.me/${phoneDigits}` : '#';
+    const gmailUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(email)}`;
 
     // Social links from settings
     const socialLinks = settings?.socialLinks || [];
@@ -83,7 +86,12 @@ function Contact() {
                                 loading="lazy"
                             />
                             <h3>Call us</h3>
-                            <p>{phone}{phoneLabel ? ` | ${phoneLabel}` : ''}</p>
+                            <p>
+                                <a href={whatsappUrl} target="_blank" rel="noopener noreferrer">
+                                    {phone}
+                                </a>
+                                {phoneLabel ? ` | ${phoneLabel}` : ''}
+                            </p>
                         </div>
 
                         <div className="contact-info-card">
@@ -93,7 +101,11 @@ function Contact() {
                                 loading="lazy"
                             />
                             <h3>Email</h3>
-                            <p>{email}</p>
+                            <p>
+                                <a href={gmailUrl} target="_blank" rel="noopener noreferrer">
+                                    {email}
+                                </a>
+                            </p>
                         </div>
 
                         <div className="contact-info-card">
