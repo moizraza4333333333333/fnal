@@ -40,6 +40,21 @@ const defaultProducts = [
         ]
     },
     {
+        _id: 'prod_7',
+        title: 'LEATHER WALLETS',
+        images: [
+            '/images/LEATHER WALLETS/geoffrey-crofte-t5Ui6FXTrO4-unsplash.jpg.jpeg',
+            '/images/LEATHER WALLETS/julius-drost-GTmLKWZzZuo-unsplash.jpg.jpeg',
+            '/images/update wallet/optimized/FBXHWFOIMJE64JE.webp',
+            '/images/update wallet/optimized/FrontViewofletherwalletbygodbolegearblack.webp',
+            '/images/update wallet/optimized/high-quality-leather-wallets-in-various-colors-on-glass-shelf-picture-photo.webp',
+            '/images/update wallet/optimized/images--4.webp',
+            '/images/update wallet/optimized/Larsen-Long-Wallet-Burgundy-Brown--1.webp',
+            '/images/update wallet/optimized/mens-luxury-leather-wallet-durable-crazy-horse-ideal-gift-380.webp',
+            '/images/update wallet/optimized/new-brown-leather-wallet-dark-background_93675-95463.webp'
+        ]
+    },
+    {
         _id: 'prod_leather_handbags',
         title: 'LEATHER HANDBAGS',
         images: [
