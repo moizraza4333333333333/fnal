@@ -1,0 +1,83 @@
+[
+    {
+        "_id": "prod_1",
+        "title": "LEATHER BELTS",
+        "images": [
+            "/images/LEATHER BELTS/alessandro-bogliari-Q1KeOUUpOj0-unsplash.jpg.jpeg",
+            "/images/LEATHER BELTS/pedro-bune-Zq2qXOrRaEE-unsplash.jpg.jpeg",
+            "/images/LEATHER BELTS/seeetz-gr-4CjBmckI-unsplash.jpg.jpeg",
+            "/images/LEATHER BELTS/seeetz-OTHeFuAhNZ0-unsplash.jpg.jpeg"
+        ]
+    },
+    {
+        "_id": "prod_2",
+        "title": "LEATHER APRONS",
+        "images": [
+            "/images/LEATHER APRONS/pexels-cottonbro-6653234.jpg.jpeg"
+        ]
+    },
+    {
+        "_id": "prod_3",
+        "title": "LEATHER GLOVES",
+        "images": [
+            "/images/LEATHER GLOVES/aaron-lefler-emQMyXVpYns-unsplash.jpg.jpeg",
+            "/images/LEATHER GLOVES/pexels-johanna-2151290000-36552347.jpg.jpeg"
+        ]
+    },
+    {
+        "_id": "prod_4",
+        "title": "LEATHER JACKETS",
+        "images": [
+            "/images/LEATHER JACKETS/chandler-aitchison-AD35Bi-_1jE-unsplash.jpg.jpeg",
+            "/images/LEATHER JACKETS/neil-wallace-eTCogYz7kQE-unsplash.jpg.jpeg",
+            "/images/LEATHER JACKETS/robbie-noble-ruNmAlLLnpo-unsplash.jpg.jpeg"
+        ]
+    },
+    {
+        "_id": "prod_5",
+        "title": "LEATHER TABLE COASTERS",
+        "images": [
+            "/images/LEATHER TABLE COASTERS/images.jpeg",
+            "/images/LEATHER TABLE COASTERS/KnapsakFeb-041.jpg.jpeg",
+            "/images/LEATHER TABLE COASTERS/six-leather-coasters-set-el-boyero.jpg.jpeg"
+        ]
+    },
+    {
+        "_id": "prod_6",
+        "title": "LEATHER TABLE MATS",
+        "images": [
+            "/images/LEATHER TABLE MATS/2PCs-Rectangular-Shape-Leather-Placemat-Apricot-5416.jpg.jpeg",
+            "/images/LEATHER TABLE MATS/Double-Sided-Brown-Dinner-Placemat-Leather-Table-Mat-PVC-Leather-Placemats-Vintage-for-Restaurant.webp",
+            "/images/LEATHER TABLE MATS/kelly-sikkema-qATevUkntlo-unsplash.jpg.jpeg",
+            "/images/LEATHER TABLE MATS/laark-boshoff-gJWlZZH74eg-unsplash.jpg.jpeg"
+        ]
+    },
+    {
+        "_id": "prod_7",
+        "title": "LEATHER WALLETS",
+        "images": [
+            "/images/LEATHER WALLETS/geoffrey-crofte-t5Ui6FXTrO4-unsplash.jpg.jpeg",
+            "/images/LEATHER WALLETS/julius-drost-GTmLKWZzZuo-unsplash.jpg.jpeg"
+        ]
+    },
+    {
+        "_id": "prod_leather_handbags",
+        "title": "LEATHER HANDBAGS",
+        "images": [
+            "/images/LEATHER HANDBAGS/optimized/IMG-20260708-WA0049.webp",
+            "/images/LEATHER HANDBAGS/optimized/IMG-20260708-WA0050.webp",
+            "/images/LEATHER HANDBAGS/optimized/IMG-20260708-WA0053.webp",
+            "/images/LEATHER HANDBAGS/optimized/IMG-20260708-WA0055.webp",
+            "/images/LEATHER HANDBAGS/optimized/IMG-20260708-WA0056.webp",
+            "/images/LEATHER HANDBAGS/optimized/IMG-20260708-WA0057.webp"
+        ]
+    },
+    {
+        "_id": "prod_9",
+        "title": "LEATHER SERVER BOOKS",
+        "images": [
+            "/images/Server books/pexels-kaylalinero-17893113.jpg.jpeg",
+            "/images/Server books/uli-prufer-uOhDASTvi6c-unsplash.jpg.jpeg"
+        ]
+    }
+]

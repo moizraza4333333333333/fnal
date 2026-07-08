@@ -14,6 +14,24 @@ function authMiddleware(req, res, next) {
     }
 }
 
+const leatherHandbagsProduct = {
+    _id: 'prod_leather_handbags',
+    title: 'LEATHER HANDBAGS',
+    images: [
+        '/images/LEATHER HANDBAGS/optimized/IMG-20260708-WA0049.webp',
+        '/images/LEATHER HANDBAGS/optimized/IMG-20260708-WA0050.webp',
+        '/images/LEATHER HANDBAGS/optimized/IMG-20260708-WA0053.webp',
+        '/images/LEATHER HANDBAGS/optimized/IMG-20260708-WA0055.webp',
+        '/images/LEATHER HANDBAGS/optimized/IMG-20260708-WA0056.webp',
+        '/images/LEATHER HANDBAGS/optimized/IMG-20260708-WA0057.webp'
+    ]
+};
+
+function ensureLeatherHandbagsProduct(products) {
+    const hasLeatherHandbags = products.some(product => product.title?.toLowerCase() === 'leather handbags');
+    return hasLeatherHandbags ? products : [...products, leatherHandbagsProduct];
+}
+
 // @route   GET /api/products
 router.get('/', async (req, res) => {
     try {
@@ -23,7 +41,7 @@ router.get('/', async (req, res) => {
             title: row.title,
             images: row.images || []
         }));
-        res.json({ success: true, data: products });
+        res.json({ success: true, data: ensureLeatherHandbagsProduct(products) });
     } catch (error) {
         console.error('Error fetching products:', error);
         res.status(500).json({ success: false, message: 'Server error' });
