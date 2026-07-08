@@ -55,8 +55,9 @@ async function migrateProductImages() {
 
     const productFolders = [
         'LEATHER BELTS', 'LEATHER APRONS', 'updated aprons/optimized', 'LEATHER GLOVES',
-        'updated gloves/optimized', 'LEATHER HANDBAGS/optimized', 'LEATHER JACKETS', 'LEATHER TABLE COASTERS',
-        'LEATHER TABLE MATS', 'LEATHER WALLETS', 'update wallet/optimized', 'Server books', 'leather-belts'
+        'updated gloves/optimized', 'LEATHER HANDBAGS/optimized', 'Leather Holsters/optimized', 'LEATHER JACKETS',
+        'LEATHER TABLE COASTERS', 'LEATHER TABLE MATS', 'LEATHER WALLETS', "LEATHER WATER'S  WALLETS/optimized",
+        'update wallet/optimized', 'Server books', 'leather-belts'
     ];
 
     const imageExtensions = ['.jpg', '.jpeg', '.png', '.gif', '.webp', '.svg', '.ico', '.avif'];

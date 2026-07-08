@@ -65,6 +65,34 @@ const defaultProducts = [
             '/images/LEATHER HANDBAGS/optimized/IMG-20260708-WA0056.webp',
             '/images/LEATHER HANDBAGS/optimized/IMG-20260708-WA0057.webp'
         ]
+    },
+    {
+        _id: 'prod_leather_holsters',
+        title: 'LEATHER HOLSTERS',
+        images: [
+            '/images/Leather Holsters/optimized/098265463e2f50e855cb7f129ddb755c.webp',
+            '/images/Leather Holsters/optimized/14ad6f081c28586bfcd9715603fe04d5.webp',
+            '/images/Leather Holsters/optimized/1ae37d0f80cd0af673d4d69ea0c6d83d.webp',
+            '/images/Leather Holsters/optimized/4e7c4296fcb7da7a50dc25846b876c05.webp',
+            '/images/Leather Holsters/optimized/54b5587e92f4c21718f7a01a346fc7b1.webp',
+            '/images/Leather Holsters/optimized/89fdac4145fdac6cec578853bc04aff3.webp',
+            '/images/Leather Holsters/optimized/9cf63244919030c10b50a61ee853316b.webp',
+            '/images/Leather Holsters/optimized/bcad5b4ee3f934bd5dae8fd2002851b0.webp',
+            '/images/Leather Holsters/optimized/c707da34294b511a853b0dadb30ac0d9.webp'
+        ]
+    },
+    {
+        _id: 'prod_leather_waters_wallets',
+        title: 'LEATHER WATER\'S WALLETS',
+        images: [
+            '/images/LEATHER WATER\'S  WALLETS/optimized/10078_0.webp',
+            '/images/LEATHER WATER\'S  WALLETS/optimized/28fe6bc39d6e1916c4498573ce0f406d.webp',
+            '/images/LEATHER WATER\'S  WALLETS/optimized/8cdc5f0cf88a76fd15fa963c5d873b39.webp',
+            '/images/LEATHER WATER\'S  WALLETS/optimized/da563c15a19c939ab96c702e261a038c.webp',
+            '/images/LEATHER WATER\'S  WALLETS/optimized/debed52bb6c73e3f7dcd1ee85275898a.webp',
+            '/images/LEATHER WATER\'S  WALLETS/optimized/Esquire-Kellnerboerse-Dallas-Waiter-Wallet-Braun-313942_4.webp',
+            '/images/LEATHER WATER\'S  WALLETS/optimized/Hamosons-1019-Kellnerboerse-leder-Kellnerportemonnaie-Waterproof-Farben.webp'
+        ]
     }
 ];
 
