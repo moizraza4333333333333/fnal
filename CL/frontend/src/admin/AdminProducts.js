@@ -16,13 +16,13 @@ function AdminProducts() {
     const [showAddForm, setShowAddForm] = useState(false);
     const [newTitle, setNewTitle] = useState('');
     const [newThumb, setNewThumb] = useState('');
-    const [newGallery, setNewGallery] = useState(['', '', '', '']);
+    const [newGallery, setNewGallery] = useState(['']);
 
     // --- Edit Product ---
     const [editingId, setEditingId] = useState(null);
     const [editTitle, setEditTitle] = useState('');
     const [editThumb, setEditThumb] = useState('');
-    const [editGallery, setEditGallery] = useState(['', '', '', '']);
+    const [editGallery, setEditGallery] = useState(['']);
 
     const loadProducts = useCallback(() => {
         setLoading(true);
@@ -137,7 +137,7 @@ function AdminProducts() {
                 setShowAddForm(false);
                 setNewTitle('');
                 setNewThumb('');
-                setNewGallery(['', '', '', '']);
+                setNewGallery(['']);
                 loadProducts();
             } else {
                 setMessage('Error: ' + data.message);
@@ -154,8 +154,7 @@ function AdminProducts() {
         setEditTitle(product.title);
         setEditThumb(product.images[0] || '');
         const extra = product.images.slice(1);
-        const padded = [...extra, '', '', '', ''].slice(0, 4);
-        setEditGallery(padded);
+        setEditGallery(extra.length ? extra : ['']);
         setMessage('');
     };
 
@@ -163,7 +162,7 @@ function AdminProducts() {
         setEditingId(null);
         setEditTitle('');
         setEditThumb('');
-        setEditGallery(['', '', '', '']);
+        setEditGallery(['']);
         setMessage('');
     };
 
@@ -318,16 +317,16 @@ function AdminProducts() {
                                             g[i] = u;
                                             setNewGallery(g);
                                         }} label="Upload" />
-                                        {url && (
-                                            <button className="admin-remove-btn" onClick={() => {
-                                                const g = [...newGallery];
-                                                g[i] = '';
-                                                setNewGallery(g);
-                                            }}>×</button>
-                                        )}
+                                        <button className="admin-remove-btn" onClick={() => {
+                                            const g = newGallery.filter((_, index) => index !== i);
+                                            setNewGallery(g.length ? g : ['']);
+                                        }}>×</button>
                                     </div>
                                 ))}
                             </div>
+                            <button className="admin-btn admin-btn-secondary admin-btn-sm" onClick={() => setNewGallery([...newGallery, ''])}>
+                                + Add More Photo
+                            </button>
                         </div>
 
                         <div className="admin-form-actions">
@@ -338,7 +337,7 @@ function AdminProducts() {
                                 setShowAddForm(false);
                                 setNewTitle('');
                                 setNewThumb('');
-                                setNewGallery(['', '', '', '']);
+                                setNewGallery(['']);
                             }}>
                                 Cancel
                             </button>
@@ -392,16 +391,16 @@ function AdminProducts() {
                                                         g[i] = u;
                                                         setEditGallery(g);
                                                     }} label="Upload" />
-                                                    {url && (
-                                                        <button className="admin-remove-btn" onClick={() => {
-                                                            const g = [...editGallery];
-                                                            g[i] = '';
-                                                            setEditGallery(g);
-                                                        }}>×</button>
-                                                    )}
+                                                    <button className="admin-remove-btn" onClick={() => {
+                                                        const g = editGallery.filter((_, index) => index !== i);
+                                                        setEditGallery(g.length ? g : ['']);
+                                                    }}>×</button>
                                                 </div>
                                             ))}
                                         </div>
+                                        <button className="admin-btn admin-btn-secondary admin-btn-sm" onClick={() => setEditGallery([...editGallery, ''])}>
+                                            + Add More Photo
+                                        </button>
                                     </div>
 
                                     <div className="admin-form-actions">

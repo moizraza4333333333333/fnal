@@ -575,11 +575,12 @@
     gap: 10px;
 }
 
-/* Gallery grid (4 slots) */
+/* Gallery grid */
 .admin-gallery-grid {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
     gap: 12px;
+    margin-bottom: 12px;
 }
 
 .admin-gallery-slot {
@@ -642,6 +643,51 @@
 
 .admin-remove-btn:hover {
     background: #c0392b;
+}
+
+.admin-empty-card,
+.admin-message-card {
+    background: #fff;
+    border: 1px solid #e8e8e8;
+    border-radius: 10px;
+    padding: 18px;
+}
+
+.admin-messages-list {
+    display: grid;
+    gap: 14px;
+}
+
+.admin-message-head {
+    display: flex;
+    justify-content: space-between;
+    gap: 16px;
+    margin-bottom: 10px;
+}
+
+.admin-message-head h3 {
+    color: #2c2c2c;
+    font-size: 16px;
+    margin: 0 0 4px;
+}
+
+.admin-message-head span,
+.admin-empty-card {
+    color: #888;
+    font-size: 13px;
+}
+
+.admin-message-head a,
+.admin-message-phone {
+    color: #205b57;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.admin-message-card p {
+    color: #555;
+    line-height: 1.6;
+    margin: 10px 0 0;
 }
 
 /* Form actions row */

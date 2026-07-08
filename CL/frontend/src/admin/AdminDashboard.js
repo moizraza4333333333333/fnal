@@ -9,6 +9,7 @@ function AdminDashboard() {
     const { user, token, logout } = useAuth();
     const [pages, setPages] = useState([]);
     const [settings, setSettings] = useState(null);
+    const [messages, setMessages] = useState([]);
 
     useEffect(() => {
         fetch(`${API_URL}/api/pages`, {
@@ -26,6 +27,15 @@ function AdminDashboard() {
             .then(res => res.json())
             .then(data => {
                 if (data.success) setSettings(data.data);
+            })
+            .catch(console.error);
+
+        fetch(`${API_URL}/api/contact`, {
+            headers: { Authorization: `Bearer ${token}` }
+        })
+            .then(res => res.json())
+            .then(data => {
+                if (data.success) setMessages(data.data);
             })
             .catch(console.error);
     }, [token]);
@@ -67,6 +77,10 @@ function AdminDashboard() {
                         <div className="admin-stat-label">Site Settings</div>
                     </div>
                     <div className="admin-stat-card">
+                        <div className="admin-stat-value">{messages.length}</div>
+                        <div className="admin-stat-label">Contact Messages</div>
+                    </div>
+                    <div className="admin-stat-card">
                         <div className="admin-stat-value">Online</div>
                         <div className="admin-stat-label">Website Status</div>
                     </div>
@@ -84,6 +98,30 @@ function AdminDashboard() {
                             </Link>
                         ))}
                     </div>
+                </div>
+
+                <div className="admin-section">
+                    <h2>Contact Messages</h2>
+                    <p>Latest messages received from the public contact form.</p>
+                    {messages.length === 0 ? (
+                        <div className="admin-empty-card">No contact messages yet.</div>
+                    ) : (
+                        <div className="admin-messages-list">
+                            {messages.map(message => (
+                                <div className="admin-message-card" key={message.id}>
+                                    <div className="admin-message-head">
+                                        <div>
+                                            <h3>{message.name}</h3>
+                                            <span>{new Date(message.created_at).toLocaleString()}</span>
+                                        </div>
+                                        <a href={`mailto:${message.email}`}>{message.email}</a>
+                                    </div>
+                                    {message.phone && <a className="admin-message-phone" href={`https://wa.me/${message.phone.replace(/\D/g, '')}`} target="_blank" rel="noopener noreferrer">{message.phone}</a>}
+                                    <p>{message.message}</p>
+                                </div>
+                            ))}
+                        </div>
+                    )}
                 </div>
             </main>
         </div>

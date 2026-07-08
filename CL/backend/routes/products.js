@@ -28,6 +28,18 @@ const defaultProducts = [
         ]
     },
     {
+        _id: 'prod_3',
+        title: 'LEATHER GLOVES',
+        images: [
+            '/images/LEATHER GLOVES/aaron-lefler-emQMyXVpYns-unsplash.jpg.jpeg',
+            '/images/LEATHER GLOVES/pexels-johanna-2151290000-36552347.jpg.jpeg',
+            '/images/updated gloves/optimized/06_-_2026-04-21t195130.926.webp',
+            '/images/updated gloves/optimized/18-2.webp',
+            '/images/updated gloves/optimized/age-of-glory-shifter-gloves-brown-leather-and-denim-315489.webp',
+            '/images/updated gloves/optimized/Black_Axel_Leather_Motorcycle_Gloves_lifestyle.webp'
+        ]
+    },
+    {
         _id: 'prod_leather_handbags',
         title: 'LEATHER HANDBAGS',
         images: [
@@ -40,8 +52,6 @@ const defaultProducts = [
         ]
     }
 ];
-
-const leatherHandbagsProduct = defaultProducts.find(product => product._id === 'prod_leather_handbags');
 
 function mapProductRow(row) {
     return {
@@ -198,7 +208,8 @@ router.delete('/:id', authMiddleware, async (req, res) => {
     try {
         const result = await pool.query('DELETE FROM products WHERE _id = $1 RETURNING *', [req.params.id]);
         if (result.rows.length === 0) {
-            if (req.params.id === leatherHandbagsProduct._id) {
+            const defaultProduct = defaultProducts.find(product => product._id === req.params.id);
+            if (defaultProduct) {
                 return res.json({ success: true, message: 'Product deleted', data: { _id: req.params.id } });
             }
             return res.status(404).json({ success: false, message: 'Product not found' });
