@@ -39,8 +39,21 @@ function authMiddleware(req, res, next) {
     }
 }
 
+function cloudinaryConfigMiddleware(req, res, next) {
+    if (!process.env.CLOUDINARY_CLOUD_NAME || !process.env.CLOUDINARY_API_KEY || !process.env.CLOUDINARY_API_SECRET) {
+        return res.status(500).json({ success: false, message: 'Cloudinary is not configured on the server' });
+    }
+    next();
+}
+
+function uploadErrorHandler(error, req, res, next) {
+    if (!error) return next();
+    console.error('Upload middleware error:', error);
+    return res.status(400).json({ success: false, message: error.message || 'Upload failed' });
+}
+
 // @route   POST /api/upload
-router.post('/', authMiddleware, upload.single('image'), (req, res) => {
+router.post('/', authMiddleware, cloudinaryConfigMiddleware, upload.single('image'), uploadErrorHandler, (req, res) => {
     try {
         if (!req.file) {
             return res.status(400).json({ success: false, message: 'No file uploaded' });

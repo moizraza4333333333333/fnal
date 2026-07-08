@@ -39,21 +39,69 @@ function AdminProducts() {
 
     useEffect(() => { loadProducts(); }, [loadProducts]);
 
+    const optimizeImageBeforeUpload = (file) => {
+        if (!file.type.startsWith('image/') || file.type === 'image/svg+xml' || file.type === 'image/gif') {
+            return Promise.resolve(file);
+        }
+
+        return new Promise((resolve) => {
+            const image = new Image();
+            const objectUrl = URL.createObjectURL(file);
+
+            image.onload = () => {
+                const maxSize = 1600;
+                const scale = Math.min(1, maxSize / Math.max(image.width, image.height));
+                const width = Math.round(image.width * scale);
+                const height = Math.round(image.height * scale);
+                const canvas = document.createElement('canvas');
+                canvas.width = width;
+                canvas.height = height;
+                canvas.getContext('2d').drawImage(image, 0, 0, width, height);
+                URL.revokeObjectURL(objectUrl);
+
+                canvas.toBlob((blob) => {
+                    if (!blob) return resolve(file);
+                    const optimizedFile = new File([blob], file.name.replace(/\.[^.]+$/, '.webp'), {
+                        type: 'image/webp',
+                        lastModified: Date.now()
+                    });
+                    resolve(optimizedFile.size < file.size ? optimizedFile : file);
+                }, 'image/webp', 0.82);
+            };
+
+            image.onerror = () => {
+                URL.revokeObjectURL(objectUrl);
+                resolve(file);
+            };
+
+            image.src = objectUrl;
+        });
+    };
+
     // --- Image Upload Helper ---
     const handleUpload = async (file, onUrl) => {
         try {
+            setMessage('Optimizing and uploading image...');
+            const uploadFile = await optimizeImageBeforeUpload(file);
             const formData = new FormData();
-            formData.append('image', file);
+            formData.append('image', uploadFile);
             const res = await fetch(`${API_URL}/api/upload`, {
                 method: 'POST',
                 headers: { Authorization: `Bearer ${token}` },
                 body: formData
             });
-            const data = await res.json();
-            if (data.success) onUrl(data.url);
-            else alert('Upload failed: ' + data.message);
+            const data = await res.json().catch(() => ({ message: 'Invalid server response' }));
+            if (res.ok && data.success) {
+                onUrl(data.url);
+                setMessage('Image uploaded successfully');
+            } else {
+                const errorMessage = data.message || `Upload failed with status ${res.status}`;
+                setMessage('Error: ' + errorMessage);
+                alert('Upload failed: ' + errorMessage);
+            }
         } catch (err) {
-            alert('Upload error');
+            setMessage('Error: ' + (err.message || 'Upload error'));
+            alert('Upload error: ' + (err.message || 'Please try again'));
         }
     };
 
