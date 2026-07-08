@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import LoadingScreen from '../components/LoadingScreen';
 
 const API_URL = process.env.REACT_APP_API_URL || '';
 
@@ -81,10 +82,9 @@ function Products() {
 
             {/* Loading State */}
             {loading && (
-                <section className="products-page-section">
-                    <div className="container" style={{ textAlign: 'center', padding: '60px 0' }}>
-                        <div className="loading-screen-spinner"></div>
-                        <p style={{ marginTop: '15px', color: '#888', fontSize: '16px' }}>Loading products...</p>
+                <section className="products-page-section products-loading-section">
+                    <div className="container">
+                        <LoadingScreen message="Loading products..." />
                     </div>
                 </section>
             )}
