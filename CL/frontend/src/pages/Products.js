@@ -115,7 +115,7 @@ function Products() {
                                     onClick={() => openLightbox(product, 0)}
                                     title="Click to view gallery"
                                 >
-                                    <img src={product.images[0]} alt={product.title} />
+                                    <img src={product.images[0]} alt={product.title} loading="lazy" decoding="async" />
                                     <div className="single-product-card-name">{product.title}</div>
                                 </div>
                             ))}

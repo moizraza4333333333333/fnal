@@ -1242,7 +1242,7 @@ img {
 .products-grid,
 .home-products-grid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
   gap: 24px;
 }
 
@@ -1910,5 +1910,159 @@ img {
 @media (max-width: 500px) {
   .services-modern-flow {
     grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 960px) {
+  .header-inner {
+    height: 68px;
+  }
+
+  .logo img {
+    width: 54px;
+  }
+
+  .logo .site-title {
+    font-size: 20px;
+  }
+
+  .nav-menu {
+    top: 68px;
+    max-height: calc(100vh - 68px);
+    overflow-y: auto;
+  }
+
+  .products-grid,
+  .home-products-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .products-page-section,
+  .home-product-showcase,
+  .services-icons,
+  .contact-info-section,
+  .contact-form-section,
+  .team-section {
+    padding: 56px 0;
+  }
+}
+
+@media (max-width: 640px) {
+  body {
+    font-size: 16px;
+    line-height: 1.6;
+  }
+
+  .container,
+  .header-inner {
+    padding-left: 18px;
+    padding-right: 18px;
+  }
+
+  .logo {
+    gap: 8px;
+    min-width: 0;
+  }
+
+  .logo .site-title {
+    font-size: 17px;
+    white-space: normal;
+  }
+
+  .menu-toggle {
+    flex-shrink: 0;
+  }
+
+  .hero-banner-img {
+    min-height: 420px;
+    object-position: center;
+  }
+
+  .hero-overlay {
+    background: rgba(0, 0, 0, 0.58);
+  }
+
+  .hero-overlay-content {
+    max-width: 100%;
+    text-align: center;
+  }
+
+  .hero-overlay-content h1,
+  .section-header h2,
+  .home-products-heading {
+    font-size: clamp(28px, 8vw, 36px);
+    line-height: 1.18;
+  }
+
+  .hero-overlay-content p,
+  .section-header p,
+  .contact-form-text p {
+    font-size: 16px;
+  }
+
+  .services-icons-grid,
+  .products-grid,
+  .home-products-grid,
+  .contact-info-grid,
+  .footer-grid {
+    grid-template-columns: 1fr;
+    gap: 18px;
+  }
+
+  .service-icon-card,
+  .contact-info-card,
+  .contact-form {
+    padding: 24px 18px;
+  }
+
+  .single-product-card {
+    border-radius: 14px;
+    animation: none;
+  }
+
+  .single-product-card img {
+    height: 230px;
+  }
+
+  .loading-screen {
+    min-height: 42vh;
+    padding: 48px 16px;
+  }
+
+  .loading-screen-spinner {
+    width: 96px;
+    height: 96px;
+  }
+
+  .loading-screen-spinner img {
+    width: 54px;
+    height: 54px;
+  }
+
+  .cta-banner {
+    padding: 52px 0;
+    text-align: center;
+  }
+
+  .cta-banner h2 {
+    font-size: 30px;
+  }
+}
+
+@media (max-width: 380px) {
+  .logo img {
+    width: 46px;
+  }
+
+  .logo .site-title {
+    font-size: 15px;
+  }
+
+  .hero-banner-img {
+    min-height: 380px;
+  }
+
+  .single-product-card img {
+    height: 210px;
   }
 }

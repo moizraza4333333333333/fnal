@@ -119,6 +119,8 @@ function Home() {
                         src="/banner.png"
                         alt="Leather Gateway - Trusted Leather Sourcing & Buying House"
                         className="hero-banner-img"
+                        fetchPriority="high"
+                        decoding="async"
                     />
                     <div className="hero-overlay">
                         <div className="container">
@@ -184,7 +186,7 @@ function Home() {
                                         onClick={() => openLightbox(product, 0)}
                                         title="Click to view gallery"
                                     >
-                                        <img src={product.images[0]} alt={product.title} />
+                                        <img src={product.images[0]} alt={product.title} loading="lazy" decoding="async" />
                                         <div className="single-product-card-name">{product.title}</div>
                                     </div>
                                 ))}

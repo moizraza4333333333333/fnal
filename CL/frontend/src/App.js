@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { Routes, Route } from 'react-router-dom';
 import { AuthProvider } from './context/AuthContext';
 import Navbar from './components/Navbar';
@@ -18,24 +18,6 @@ import AdminProducts from './admin/AdminProducts';
 import AdminRoute from './admin/AdminRoute';
 
 function App() {
-    const [isLoading, setIsLoading] = useState(true);
-
-    useEffect(() => {
-        const timer = setTimeout(() => setIsLoading(false), 1200);
-        return () => clearTimeout(timer);
-    }, []);
-
-    if (isLoading) {
-        return (
-            <div className="site-loader">
-                <div className="site-loader-circle">
-                    <img src="/images/logo.webp" alt="Leather Gateway Logo" />
-                </div>
-                <p>Loading...</p>
-            </div>
-        );
-    }
-
     return (
         <AuthProvider>
             <Routes>
