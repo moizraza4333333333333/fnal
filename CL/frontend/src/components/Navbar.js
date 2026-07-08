@@ -17,7 +17,10 @@ function Navbar() {
                         className="logo-img"
                         onError={(e) => { e.target.style.display = 'none'; }}
                     />
-                    <span className="site-title">{siteName}</span>
+                    <span className="site-brand-text">
+                        <span className="site-title">{siteName}</span>
+                        <span className="site-tagline">Buying House</span>
+                    </span>
                 </Link>
 
                 <button

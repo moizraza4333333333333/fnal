@@ -269,12 +269,28 @@ img {
   display: block;
 }
 
+.site-brand-text {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  line-height: 1;
+}
+
 .logo .site-title {
   font-size: 24px;
   font-weight: 700;
   color: var(--nv-text-color);
   line-height: 1;
   white-space: nowrap;
+}
+
+.logo .site-tagline {
+  color: var(--nv-dark-bg);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1.8px;
+  line-height: 1;
+  text-transform: uppercase;
 }
 
 .nav-menu {
@@ -1957,6 +1973,11 @@ img {
     white-space: normal;
   }
 
+  .logo .site-tagline {
+    font-size: 9px;
+    letter-spacing: 1.2px;
+  }
+
   .menu-toggle {
     flex-shrink: 0;
   }
@@ -2043,6 +2064,11 @@ img {
 
   .logo .site-title {
     font-size: 15px;
+  }
+
+  .logo .site-tagline {
+    font-size: 8px;
+    letter-spacing: 1px;
   }
 
   .hero-banner-img {
