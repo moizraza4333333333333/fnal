@@ -1,0 +1,15 @@
+node_modules
+.env
+.env.local
+*.log
+.DS_Store
+Thumbs.db
+CL/frontend/build
+CL/backend/uploads/*.jpg
+CL/backend/uploads/*.jpeg
+CL/backend/uploads/*.png
+CL/backend/uploads/*.webp
+CL/backend/node_modules
+CL/frontend/node_modules
+CL/backend/data/*.json
+CL/backend/.env

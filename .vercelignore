@@ -1,0 +1,15 @@
+node_modules
+.git
+*.md
+CL/backend/node_modules
+CL/frontend/node_modules
+CL/backend/data/*.json
+CL/backend/seed.js
+CL/backend/setup-db.js
+CL/backend/migrate-assets.js
+CL/backend/output.txt
+CL/frontend/src
+CL/backend/uploads/*.jpg
+CL/backend/uploads/*.jpeg
+CL/backend/uploads/*.png
+CL/backend/uploads/*.webp
