@@ -39,7 +39,24 @@ async function seed() {
                     );
                     console.log(`✓ Page "${id}" created`);
                 } else {
-                    console.log(`→ Page "${id}" already exists`);
+                    // Merge new fields into existing content without overwriting admin changes
+                    const existingContent = existingPage.rows[0].content || {};
+                    const mergedContent = { ...content, ...existingContent };
+                    let updated = false;
+                    for (const key of Object.keys(content)) {
+                        if (!(key in existingContent)) {
+                            updated = true;
+                        }
+                    }
+                    if (updated) {
+                        await client.query(
+                            'UPDATE pages SET content = $1, updated_at = CURRENT_TIMESTAMP WHERE id = $2',
+                            [JSON.stringify(mergedContent), id]
+                        );
+                        console.log(`✓ Page "${id}" updated with new fields`);
+                    } else {
+                        console.log(`→ Page "${id}" already exists and up to date`);
+                    }
                 }
             }
         } else {
