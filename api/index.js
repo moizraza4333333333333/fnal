@@ -7,20 +7,6 @@ const path = require('path');
 
 const app = express();
 
-// Auto-seed on cold start to ensure new page fields (e.g. heroBannerImage, headerImage)
-// are merged into existing database rows. Runs once per cold start; safe to re-run.
-let seedPromise = null;
-function ensureSeeded() {
-    if (!seedPromise) {
-        seedPromise = require('../CL/backend/seed').seed().catch((err) => {
-            console.error('Auto-seed failed:', err);
-            seedPromise = null; // allow retry on next cold start if it failed
-        });
-    }
-    return seedPromise;
-}
-ensureSeeded();
-
 // Middleware
 app.use(cors());
 app.use(express.json({ limit: '50mb' }));
