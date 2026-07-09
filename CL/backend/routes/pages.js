@@ -3,6 +3,15 @@ const router = express.Router();
 const pool = require('../db');
 const jwt = require('jsonwebtoken');
 
+// Default fields to ensure exist on each page (self-healing sync).
+// When a page is fetched and is missing any of these keys, they are merged in
+// and persisted so the admin controls and public pages can use them.
+const PAGE_DEFAULTS = {
+    home: { heroBannerImage: '/banner.png' },
+    contact: { headerImage: '' },
+    services: { heroBannerImage: '/images/service-banner-hero.webp' }
+};
+
 function authMiddleware(req, res, next) {
     const token = req.headers.authorization?.split(' ')[1];
     if (!token) return res.status(401).json({ success: false, message: 'Unauthorized' });
@@ -41,11 +50,33 @@ router.get('/:pageId', async (req, res) => {
             return res.status(404).json({ success: false, message: 'Page not found' });
         }
         const row = result.rows[0];
+        const existingContent = row.content || {};
+
+        // Self-healing: merge any missing default fields for this page
+        const defaults = PAGE_DEFAULTS[pageId];
+        let needsUpdate = false;
+        const mergedContent = { ...existingContent };
+        if (defaults) {
+            for (const [key, value] of Object.entries(defaults)) {
+                if (!(key in existingContent)) {
+                    mergedContent[key] = value;
+                    needsUpdate = true;
+                }
+            }
+        }
+
+        if (needsUpdate) {
+            await pool.query(
+                'UPDATE pages SET content = $1, updated_at = CURRENT_TIMESTAMP WHERE id = $2',
+                [JSON.stringify(mergedContent), pageId]
+            );
+        }
+
         const page = {
             id: row.id,
             title: row.title,
             slug: row.slug,
-            ...row.content,
+            ...mergedContent,
             updatedAt: row.updated_at
         };
         res.json({ success: true, data: page });
