@@ -113,4 +113,10 @@ async function seed() {
     }
 }
 
-seed();
+// Export for programmatic use (e.g., from serverless cold start)
+module.exports = { seed };
+
+// Auto-run only when executed directly (node seed.js), not when required
+if (require.main === module) {
+    seed();
+}
