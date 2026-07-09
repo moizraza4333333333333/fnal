@@ -223,6 +223,36 @@ function PageEditor() {
                         </div>
                     )}
 
+                    {/* Services Page Hero Banner Image */}
+                    {pageId === 'services' && (
+                        <div className="admin-form-group">
+                            <label>Services Hero Banner Image</label>
+                            <p style={{ color: '#888', fontSize: '13px', marginBottom: '8px' }}>
+                                This is the large banner image shown at the top of the Services page.
+                            </p>
+                            <div style={{ display: 'flex', gap: '10px', alignItems: 'center', flexWrap: 'wrap' }}>
+                                <input
+                                    type="text"
+                                    value={formData.heroBannerImage || ''}
+                                    onChange={(e) => handleChange('heroBannerImage', e.target.value)}
+                                    placeholder="/images/service-banner-hero.webp"
+                                    style={{ flex: 1, minWidth: '200px' }}
+                                />
+                                <ImageUploadButton
+                                    onUpload={(url) => handleChange('heroBannerImage', url)}
+                                />
+                                {formData.heroBannerImage && (
+                                    <img
+                                        src={resolveImageUrl(formData.heroBannerImage)}
+                                        alt="Banner preview"
+                                        style={{ width: '120px', height: '60px', objectFit: 'cover', borderRadius: '4px', border: '1px solid #ddd' }}
+                                        onError={(e) => { e.target.style.display = 'none'; }}
+                                    />
+                                )}
+                            </div>
+                        </div>
+                    )}
+
                     {/* Services/Products Section Items (Generic Array Editor) */}
                     {formData.sections && formData.sections.map((section, si) => (
                         <div key={si} className="admin-section-block">

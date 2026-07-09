@@ -111,6 +111,7 @@
     "id": "services",
     "title": "Our Services",
     "slug": "our-services",
+    "heroBannerImage": "/images/service-banner-hero.webp",
     "heroTitle": "Services",
     "heroLead": "We provide end-to-end solutions including supplier sourcing, competitive pricing and negotiation, production monitoring, and comprehensive quality audits – ensuring efficiency, reliability, and excellence at every stage.",
     "flowItems": [

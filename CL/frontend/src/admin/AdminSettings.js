@@ -11,6 +11,11 @@ function AdminSettings() {
     const [saving, setSaving] = useState(false);
     const [message, setMessage] = useState('');
 
+    // Password change state
+    const [pwForm, setPwForm] = useState({ currentPassword: '', newPassword: '', confirmPassword: '' });
+    const [pwSaving, setPwSaving] = useState(false);
+    const [pwMessage, setPwMessage] = useState('');
+
     useEffect(() => {
         fetch(`${API_URL}/api/settings`, {
             headers: { Authorization: `Bearer ${token}` }
@@ -53,6 +58,43 @@ function AdminSettings() {
             setMessage('Error saving settings');
         }
         setSaving(false);
+    };
+
+    const handlePwChange = async () => {
+        setPwMessage('');
+        if (!pwForm.currentPassword || !pwForm.newPassword) {
+            setPwMessage('Error: Please fill in all fields');
+            return;
+        }
+        if (pwForm.newPassword.length < 6) {
+            setPwMessage('Error: New password must be at least 6 characters');
+            return;
+        }
+        if (pwForm.newPassword !== pwForm.confirmPassword) {
+            setPwMessage('Error: New passwords do not match');
+            return;
+        }
+        setPwSaving(true);
+        try {
+            const res = await fetch(`${API_URL}/api/auth/password`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: `Bearer ${token}`
+                },
+                body: JSON.stringify({ currentPassword: pwForm.currentPassword, newPassword: pwForm.newPassword })
+            });
+            const data = await res.json();
+            if (data.success) {
+                setPwMessage('Password changed successfully!');
+                setPwForm({ currentPassword: '', newPassword: '', confirmPassword: '' });
+            } else {
+                setPwMessage('Error: ' + data.message);
+            }
+        } catch (err) {
+            setPwMessage('Error changing password');
+        }
+        setPwSaving(false);
     };
 
     if (loading) return <div className="admin-layout"><main className="admin-main"><div className="admin-loading">Loading...</div></main></div>;
@@ -133,6 +175,49 @@ function AdminSettings() {
                         <div style={{ marginTop: '30px' }}>
                             <button onClick={handleSave} className="admin-btn admin-btn-primary" disabled={saving}>
                                 {saving ? 'Saving...' : 'Save All Settings'}
+                            </button>
+                        </div>
+
+                        {/* ===== CHANGE PASSWORD ===== */}
+                        <div style={{ marginTop: '50px', paddingTop: '30px', borderTop: '2px solid #e0e0e0' }}>
+                            <h3 style={{ marginBottom: '8px' }}>Change Admin Password</h3>
+                            <p style={{ color: '#888', fontSize: '14px', marginBottom: '16px' }}>
+                                Update your admin account password. You'll need to log in again after changing.
+                            </p>
+                            {pwMessage && (
+                                <div className={`admin-alert ${pwMessage.includes('Error') ? 'admin-alert-error' : 'admin-alert-success'}`} style={{ marginBottom: '15px' }}>
+                                    {pwMessage}
+                                </div>
+                            )}
+                            <div className="admin-form-group">
+                                <label>Current Password</label>
+                                <input
+                                    type="password"
+                                    value={pwForm.currentPassword}
+                                    onChange={(e) => setPwForm({ ...pwForm, currentPassword: e.target.value })}
+                                    placeholder="Enter current password"
+                                />
+                            </div>
+                            <div className="admin-form-group">
+                                <label>New Password</label>
+                                <input
+                                    type="password"
+                                    value={pwForm.newPassword}
+                                    onChange={(e) => setPwForm({ ...pwForm, newPassword: e.target.value })}
+                                    placeholder="Enter new password (min 6 characters)"
+                                />
+                            </div>
+                            <div className="admin-form-group">
+                                <label>Confirm New Password</label>
+                                <input
+                                    type="password"
+                                    value={pwForm.confirmPassword}
+                                    onChange={(e) => setPwForm({ ...pwForm, confirmPassword: e.target.value })}
+                                    placeholder="Re-enter new password"
+                                />
+                            </div>
+                            <button onClick={handlePwChange} className="admin-btn admin-btn-primary" disabled={pwSaving}>
+                                {pwSaving ? 'Changing...' : 'Change Password'}
                             </button>
                         </div>
                     </div>

@@ -1,16 +1,19 @@
 import React from 'react';
 import usePageData from '../hooks/usePageData';
-const SERVICE_BANNER_SRC = '/images/service-banner-hero.webp';
+import resolveImageUrl from '../utils/resolveImageUrl';
+
+const DEFAULT_SERVICE_BANNER = '/images/service-banner-hero.webp';
 
 if (typeof window !== 'undefined') {
     const serviceBannerPreload = new Image();
-    serviceBannerPreload.src = SERVICE_BANNER_SRC;
+    serviceBannerPreload.src = DEFAULT_SERVICE_BANNER;
 }
 
 function Services() {
     const { page } = usePageData('services');
 
     // Fallback hardcoded data
+    const heroBannerImage = page?.heroBannerImage || DEFAULT_SERVICE_BANNER;
     const heroTitle = page?.heroTitle || 'Our Services';
     const heroLead = page?.heroLead || 'We provide end-to-end solutions including supplier sourcing, competitive pricing and negotiation, production monitoring, and comprehensive quality audits – ensuring efficiency, reliability, and excellence at every stage.';
     const flowItems = page?.flowItems || ['Supplier Sourcing', 'Product Development', 'Production Tracking', 'In-Line Quality Control', 'Final Inspection & Reporting'];
@@ -29,7 +32,7 @@ function Services() {
             <section className="services-modern-hero">
                 <div className="services-modern-hero-bg">
                     <div className="services-modern-hero-banner">
-                        <img src={SERVICE_BANNER_SRC} alt="Leather Gateway services" loading="eager" fetchPriority="high" decoding="async" width="1349" height="900" />
+                        <img src={resolveImageUrl(heroBannerImage, { width: 1920 })} alt="Leather Gateway services" loading="eager" fetchPriority="high" decoding="async" width="1349" height="900" />
                         <div className="services-modern-hero-overlay">
                             <div className="container">
                                 <div className="services-modern-hero-content">
