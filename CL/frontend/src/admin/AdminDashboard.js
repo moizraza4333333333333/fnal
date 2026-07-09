@@ -11,6 +11,7 @@ function AdminDashboard() {
     const [settings, setSettings] = useState(null);
     const [messages, setMessages] = useState([]);
     const [messageFilter, setMessageFilter] = useState('unread');
+    const [sidebarOpen, setSidebarOpen] = useState(false);
 
     const loadMessages = useCallback(() => {
         fetch(`${API_URL}/api/contact?status=${messageFilter}`, {
@@ -76,19 +77,23 @@ function AdminDashboard() {
 
     return (
         <div className="admin-layout">
-            <aside className="admin-sidebar">
+            <div
+                className={`admin-sidebar-overlay ${sidebarOpen ? 'show' : ''}`}
+                onClick={() => setSidebarOpen(false)}
+            />
+            <aside className={`admin-sidebar ${sidebarOpen ? 'open' : ''}`}>
                 <div className="admin-sidebar-header">
                     <h2>Leather Gateway</h2>
                     <p>Admin Panel</p>
                 </div>
                 <nav className="admin-nav">
-                    <Link to="/admin/dashboard" className="admin-nav-item active">Dashboard</Link>
-                    <Link to="/admin/pages/home" className="admin-nav-item">Home Page</Link>
-                    <Link to="/admin/pages/about" className="admin-nav-item">About Page</Link>
-                    <Link to="/admin/pages/services" className="admin-nav-item">Services Page</Link>
-                    <Link to="/admin/pages/products" className="admin-nav-item">Products Page</Link>
-                    <Link to="/admin/pages/contact" className="admin-nav-item">Contact Page</Link>
-                    <Link to="/admin/settings" className="admin-nav-item">Site Settings</Link>
+                    <Link to="/admin/dashboard" className="admin-nav-item active" onClick={() => setSidebarOpen(false)}>Dashboard</Link>
+                    <Link to="/admin/pages/home" className="admin-nav-item" onClick={() => setSidebarOpen(false)}>Home Page</Link>
+                    <Link to="/admin/pages/about" className="admin-nav-item" onClick={() => setSidebarOpen(false)}>About Page</Link>
+                    <Link to="/admin/pages/services" className="admin-nav-item" onClick={() => setSidebarOpen(false)}>Services Page</Link>
+                    <Link to="/admin/pages/products" className="admin-nav-item" onClick={() => setSidebarOpen(false)}>Products Page</Link>
+                    <Link to="/admin/pages/contact" className="admin-nav-item" onClick={() => setSidebarOpen(false)}>Contact Page</Link>
+                    <Link to="/admin/settings" className="admin-nav-item" onClick={() => setSidebarOpen(false)}>Site Settings</Link>
                 </nav>
                 <div className="admin-sidebar-footer">
                     <span>Logged in as {user?.email}</span>
@@ -98,6 +103,7 @@ function AdminDashboard() {
 
             <main className="admin-main">
                 <div className="admin-header">
+                    <button className="admin-mobile-toggle" onClick={() => setSidebarOpen(true)} aria-label="Open menu">☰</button>
                     <h1>Dashboard</h1>
                 </div>
 

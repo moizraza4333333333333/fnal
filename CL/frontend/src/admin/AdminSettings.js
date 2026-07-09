@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useAuth } from '../context/AuthContext';
 import './admin.css';
+import AdminLoading from './AdminLoading';
 
 const API_URL = process.env.REACT_APP_API_URL || '';
 
@@ -10,6 +11,7 @@ function AdminSettings() {
     const [loading, setLoading] = useState(true);
     const [saving, setSaving] = useState(false);
     const [message, setMessage] = useState('');
+    const [sidebarOpen, setSidebarOpen] = useState(false);
 
     // Password change state
     const [pwForm, setPwForm] = useState({ currentPassword: '', newPassword: '', confirmPassword: '' });
@@ -97,28 +99,33 @@ function AdminSettings() {
         setPwSaving(false);
     };
 
-    if (loading) return <div className="admin-layout"><main className="admin-main"><div className="admin-loading">Loading...</div></main></div>;
+    if (loading) return <div className="admin-layout"><main className="admin-main"><AdminLoading message="Loading settings..." /></main></div>;
 
     return (
         <div className="admin-layout">
-            <aside className="admin-sidebar">
+            <div
+                className={`admin-sidebar-overlay ${sidebarOpen ? 'show' : ''}`}
+                onClick={() => setSidebarOpen(false)}
+            />
+            <aside className={`admin-sidebar ${sidebarOpen ? 'open' : ''}`}>
                 <div className="admin-sidebar-header">
                     <h2>Leather Gateway</h2>
                     <p>Admin Panel</p>
                 </div>
                 <nav className="admin-nav">
-                    <a href="/admin/dashboard" className="admin-nav-item">← Dashboard</a>
-                    <a href="/admin/pages/home" className="admin-nav-item">Home Page</a>
-                    <a href="/admin/pages/about" className="admin-nav-item">About Page</a>
-                    <a href="/admin/pages/services" className="admin-nav-item">Services Page</a>
-                    <a href="/admin/pages/products" className="admin-nav-item">Products Page</a>
-                    <a href="/admin/pages/contact" className="admin-nav-item">Contact Page</a>
-                    <a href="/admin/settings" className="admin-nav-item active">Site Settings</a>
+                    <a href="/admin/dashboard" className="admin-nav-item" onClick={() => setSidebarOpen(false)}>← Dashboard</a>
+                    <a href="/admin/pages/home" className="admin-nav-item" onClick={() => setSidebarOpen(false)}>Home Page</a>
+                    <a href="/admin/pages/about" className="admin-nav-item" onClick={() => setSidebarOpen(false)}>About Page</a>
+                    <a href="/admin/pages/services" className="admin-nav-item" onClick={() => setSidebarOpen(false)}>Services Page</a>
+                    <a href="/admin/pages/products" className="admin-nav-item" onClick={() => setSidebarOpen(false)}>Products Page</a>
+                    <a href="/admin/pages/contact" className="admin-nav-item" onClick={() => setSidebarOpen(false)}>Contact Page</a>
+                    <a href="/admin/settings" className="admin-nav-item active" onClick={() => setSidebarOpen(false)}>Site Settings</a>
                 </nav>
             </aside>
 
             <main className="admin-main">
                 <div className="admin-header">
+                    <button className="admin-mobile-toggle" onClick={() => setSidebarOpen(true)} aria-label="Open menu">☰</button>
                     <h1>Site Settings</h1>
                     <button onClick={handleSave} className="admin-btn admin-btn-primary" disabled={saving}>
                         {saving ? 'Saving...' : 'Save Settings'}

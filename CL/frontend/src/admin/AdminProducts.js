@@ -2,12 +2,14 @@ import React, { useState, useEffect, useCallback } from 'react';
 import { useAuth } from '../context/AuthContext';
 import { Link } from 'react-router-dom';
 import './admin.css';
+import AdminLoading from './AdminLoading';
 
 const API_URL = process.env.REACT_APP_API_URL || '';
 
 function AdminProducts() {
     const { token } = useAuth();
     const [products, setProducts] = useState([]);
+    const [sidebarOpen, setSidebarOpen] = useState(false);
     const [loading, setLoading] = useState(true);
     const [saving, setSaving] = useState(false);
     const [message, setMessage] = useState('');
@@ -298,9 +300,13 @@ function AdminProducts() {
     if (loading) {
         return (
             <div className="admin-layout">
-                <Sidebar />
+                <div
+                    className={`admin-sidebar-overlay ${sidebarOpen ? 'show' : ''}`}
+                    onClick={() => setSidebarOpen(false)}
+                />
+                <Sidebar open={sidebarOpen} onNavigate={() => setSidebarOpen(false)} />
                 <main className="admin-main">
-                    <div className="admin-loading">Loading products...</div>
+                    <AdminLoading message="Loading products..." />
                 </main>
             </div>
         );
@@ -308,9 +314,14 @@ function AdminProducts() {
 
     return (
         <div className="admin-layout">
-            <Sidebar />
+            <div
+                className={`admin-sidebar-overlay ${sidebarOpen ? 'show' : ''}`}
+                onClick={() => setSidebarOpen(false)}
+            />
+            <Sidebar open={sidebarOpen} onNavigate={() => setSidebarOpen(false)} />
             <main className="admin-main">
                 <div className="admin-header">
+                    <button className="admin-mobile-toggle" onClick={() => setSidebarOpen(true)} aria-label="Open menu">☰</button>
                     <h1>Products</h1>
                     <button
                         className="admin-btn admin-btn-primary"
@@ -518,22 +529,22 @@ function AdminProducts() {
     );
 }
 
-function Sidebar() {
+function Sidebar({ open, onNavigate }) {
     const { user, logout } = useAuth();
     return (
-        <aside className="admin-sidebar">
+        <aside className={`admin-sidebar ${open ? 'open' : ''}`}>
             <div className="admin-sidebar-header">
                 <h2>Leather Gateway</h2>
                 <p>Admin Panel</p>
             </div>
             <nav className="admin-nav">
-                <Link to="/admin/dashboard" className="admin-nav-item">Dashboard</Link>
-                <Link to="/admin/pages/home" className="admin-nav-item">Home Page</Link>
-                <Link to="/admin/pages/about" className="admin-nav-item">About Page</Link>
-                <Link to="/admin/pages/services" className="admin-nav-item">Services Page</Link>
-                <Link to="/admin/products" className="admin-nav-item active">Product Manager</Link>
-                <Link to="/admin/pages/contact" className="admin-nav-item">Contact Page</Link>
-                <Link to="/admin/settings" className="admin-nav-item">Site Settings</Link>
+                <Link to="/admin/dashboard" className="admin-nav-item" onClick={onNavigate}>Dashboard</Link>
+                <Link to="/admin/pages/home" className="admin-nav-item" onClick={onNavigate}>Home Page</Link>
+                <Link to="/admin/pages/about" className="admin-nav-item" onClick={onNavigate}>About Page</Link>
+                <Link to="/admin/pages/services" className="admin-nav-item" onClick={onNavigate}>Services Page</Link>
+                <Link to="/admin/products" className="admin-nav-item active" onClick={onNavigate}>Product Manager</Link>
+                <Link to="/admin/pages/contact" className="admin-nav-item" onClick={onNavigate}>Contact Page</Link>
+                <Link to="/admin/settings" className="admin-nav-item" onClick={onNavigate}>Site Settings</Link>
             </nav>
             <div className="admin-sidebar-footer">
                 <span>Logged in as {user?.email}</span>

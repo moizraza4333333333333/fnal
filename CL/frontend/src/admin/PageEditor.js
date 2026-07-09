@@ -3,6 +3,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import './admin.css';
 import resolveImageUrl from '../utils/resolveImageUrl';
+import AdminLoading from './AdminLoading';
 
 const API_URL = process.env.REACT_APP_API_URL || '';
 
@@ -15,6 +16,7 @@ function PageEditor() {
     const [saving, setSaving] = useState(false);
     const [message, setMessage] = useState('');
     const [formData, setFormData] = useState({});
+    const [sidebarOpen, setSidebarOpen] = useState(false);
 
     useEffect(() => {
         fetch(`${API_URL}/api/pages/${pageId}`, {
@@ -86,29 +88,34 @@ function PageEditor() {
         setSaving(false);
     };
 
-    if (loading) return <div className="admin-main"><div className="admin-loading">Loading...</div></div>;
+    if (loading) return <div className="admin-main"><AdminLoading message="Loading page..." /></div>;
     if (!page) return <div className="admin-main"><div className="admin-loading">Page not found</div></div>;
 
     return (
         <div className="admin-layout">
-            <aside className="admin-sidebar">
+            <div
+                className={`admin-sidebar-overlay ${sidebarOpen ? 'show' : ''}`}
+                onClick={() => setSidebarOpen(false)}
+            />
+            <aside className={`admin-sidebar ${sidebarOpen ? 'open' : ''}`}>
                 <div className="admin-sidebar-header">
                     <h2>Leather Gateway</h2>
                     <p>Admin Panel</p>
                 </div>
                 <nav className="admin-nav">
-                    <a href="/admin/dashboard" className="admin-nav-item">← Dashboard</a>
-                    <a href="/admin/pages/home" className={`admin-nav-item ${pageId === 'home' ? 'active' : ''}`}>Home Page</a>
-                    <a href="/admin/pages/about" className={`admin-nav-item ${pageId === 'about' ? 'active' : ''}`}>About Page</a>
-                    <a href="/admin/pages/services" className={`admin-nav-item ${pageId === 'services' ? 'active' : ''}`}>Services Page</a>
-                    <a href="/admin/pages/products" className={`admin-nav-item ${pageId === 'products' ? 'active' : ''}`}>Products Page</a>
-                    <a href="/admin/pages/contact" className={`admin-nav-item ${pageId === 'contact' ? 'active' : ''}`}>Contact Page</a>
-                    <a href="/admin/settings" className="admin-nav-item">Site Settings</a>
+                    <a href="/admin/dashboard" className="admin-nav-item" onClick={() => setSidebarOpen(false)}>← Dashboard</a>
+                    <a href="/admin/pages/home" className={`admin-nav-item ${pageId === 'home' ? 'active' : ''}`} onClick={() => setSidebarOpen(false)}>Home Page</a>
+                    <a href="/admin/pages/about" className={`admin-nav-item ${pageId === 'about' ? 'active' : ''}`} onClick={() => setSidebarOpen(false)}>About Page</a>
+                    <a href="/admin/pages/services" className={`admin-nav-item ${pageId === 'services' ? 'active' : ''}`} onClick={() => setSidebarOpen(false)}>Services Page</a>
+                    <a href="/admin/pages/products" className={`admin-nav-item ${pageId === 'products' ? 'active' : ''}`} onClick={() => setSidebarOpen(false)}>Products Page</a>
+                    <a href="/admin/pages/contact" className={`admin-nav-item ${pageId === 'contact' ? 'active' : ''}`} onClick={() => setSidebarOpen(false)}>Contact Page</a>
+                    <a href="/admin/settings" className="admin-nav-item" onClick={() => setSidebarOpen(false)}>Site Settings</a>
                 </nav>
             </aside>
 
             <main className="admin-main">
                 <div className="admin-header">
+                    <button className="admin-mobile-toggle" onClick={() => setSidebarOpen(true)} aria-label="Open menu">☰</button>
                     <h1>Editing: {formData.title || page.title}</h1>
                     <button onClick={handleSave} className="admin-btn admin-btn-primary" disabled={saving}>
                         {saving ? 'Saving...' : 'Save Changes'}

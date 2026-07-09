@@ -66,7 +66,12 @@ function AdminLogin() {
                         />
                     </div>
                     <button type="submit" className="admin-btn admin-btn-primary" disabled={loading} style={{ width: '100%' }}>
-                        {loading ? 'Signing in...' : 'Sign In'}
+                        {loading ? (
+                            <span style={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center', gap: '8px' }}>
+                                <span className="admin-login-btn-spinner" />
+                                Signing in...
+                            </span>
+                        ) : 'Sign In'}
                     </button>
                 </form>
 

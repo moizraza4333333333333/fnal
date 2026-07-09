@@ -60,6 +60,17 @@
     text-decoration: underline;
 }
 
+/* Login button spinner */
+.admin-login-btn-spinner {
+    width: 16px;
+    height: 16px;
+    border: 2px solid rgba(255, 255, 255, 0.4);
+    border-top-color: #fff;
+    border-radius: 50%;
+    animation: adminSpin 0.7s linear infinite;
+    display: inline-block;
+}
+
 /* Layout */
 .admin-layout {
     display: flex;
@@ -425,6 +436,65 @@
     color: #888;
 }
 
+/* ===== Branded Admin Loading Screen (logo + spinner) ===== */
+.admin-loading-screen {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 60vh;
+    width: 100%;
+}
+
+.admin-loading-content {
+    text-align: center;
+}
+
+.admin-loading-logo-wrap {
+    position: relative;
+    width: 90px;
+    height: 90px;
+    margin: 0 auto 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.admin-loading-logo {
+    width: 46px;
+    height: auto;
+    position: relative;
+    z-index: 2;
+    border-radius: 50%;
+    object-fit: contain;
+}
+
+.admin-loading-spinner {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 90px;
+    height: 90px;
+    border: 4px solid rgba(32, 91, 87, 0.12);
+    border-top-color: #205b57;
+    border-right-color: #2a8a82;
+    border-radius: 50%;
+    animation: adminSpin 0.9s linear infinite;
+    box-sizing: border-box;
+}
+
+@keyframes adminSpin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.admin-loading-text {
+    color: #888;
+    font-size: 15px;
+    letter-spacing: 0.3px;
+    margin: 0;
+}
+
 /* ========================================
    ADMIN PRODUCT MANAGER (Simplified)
    ======================================== */
@@ -765,14 +835,33 @@
     font-size: 13px !important;
 }
 
-/* Responsive Admin */
+/* Mobile menu toggle button (hidden on desktop) */
+.admin-mobile-toggle {
+    display: none;
+    background: #0d1821;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    padding: 8px 12px;
+    font-size: 20px;
+    cursor: pointer;
+    align-items: center;
+    justify-content: center;
+    line-height: 1;
+}
+
+.admin-sidebar-overlay {
+    display: none;
+}
+
+/* Tablet */
 @media (max-width: 768px) {
     .admin-sidebar {
-        width: 200px;
+        width: 220px;
     }
 
     .admin-main {
-        margin-left: 200px;
+        margin-left: 220px;
         padding: 20px;
     }
 
@@ -786,5 +875,125 @@
 
     .admin-section-head {
         flex-direction: column;
+    }
+
+    .admin-header {
+        flex-wrap: wrap;
+        gap: 12px;
+    }
+
+    .admin-header h1 {
+        font-size: 22px;
+    }
+
+    .admin-login-card {
+        padding: 28px 22px;
+    }
+}
+
+/* Mobile — off-canvas sidebar */
+@media (max-width: 600px) {
+    .admin-mobile-toggle {
+        display: inline-flex;
+    }
+
+    .admin-sidebar {
+        position: fixed;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        width: 250px;
+        transform: translateX(-100%);
+        transition: transform 0.3s ease;
+        z-index: 1000;
+        box-shadow: 2px 0 20px rgba(0, 0, 0, 0.2);
+    }
+
+    .admin-sidebar.open {
+        transform: translateX(0);
+    }
+
+    .admin-sidebar-overlay {
+        display: block;
+        position: fixed;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.45);
+        z-index: 999;
+        opacity: 0;
+        visibility: hidden;
+        transition: opacity 0.3s ease, visibility 0.3s ease;
+    }
+
+    .admin-sidebar-overlay.show {
+        opacity: 1;
+        visibility: visible;
+    }
+
+    .admin-main {
+        margin-left: 0;
+        padding: 16px;
+    }
+
+    .admin-header {
+        flex-direction: row;
+        align-items: center;
+        gap: 12px;
+    }
+
+    .admin-header h1 {
+        font-size: 18px;
+        flex: 1;
+    }
+
+    .admin-header .admin-btn {
+        font-size: 13px;
+        padding: 8px 14px;
+    }
+
+    .admin-stats-grid {
+        grid-template-columns: 1fr;
+        gap: 12px;
+    }
+
+    .admin-stat-card {
+        padding: 18px;
+    }
+
+    .admin-stat-value {
+        font-size: 26px;
+    }
+
+    .admin-editor {
+        padding: 16px;
+    }
+
+    .admin-form-group label {
+        font-size: 13px;
+    }
+
+    .admin-login-card {
+        padding: 24px 18px;
+        max-width: 100%;
+    }
+
+    .admin-login-logo img {
+        width: 64px;
+    }
+
+    .admin-login-logo h1 {
+        font-size: 20px;
+    }
+
+    .admin-message-head {
+        flex-direction: column;
+        gap: 6px;
+    }
+
+    .admin-message-actions {
+        flex-direction: column;
+    }
+
+    .admin-message-actions button {
+        width: 100%;
     }
 }
