@@ -114,18 +114,7 @@ async function ensureDefaultProductInDb(defaultProduct) {
         return mapProductRow(result.rows[0]);
     }
 
-    const row = existing.rows[0];
-    const currentImages = row.images || [];
-    const mergedImages = [...currentImages, ...defaultProduct.images.filter(image => !currentImages.includes(image))];
-    if (mergedImages.length !== currentImages.length) {
-        const result = await pool.query(
-            'UPDATE products SET images = $1, updated_at = CURRENT_TIMESTAMP WHERE _id = $2 RETURNING *',
-            [JSON.stringify(mergedImages), defaultProduct._id]
-        );
-        return mapProductRow(result.rows[0]);
-    }
-
-    return mapProductRow(row);
+    return mapProductRow(existing.rows[0]);
 }
 
 async function ensureDefaultProductsInDb() {
