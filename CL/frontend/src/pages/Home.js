@@ -75,6 +75,7 @@ function Home() {
     };
 
     // Fallback hardcoded content while loading or if API fails
+    const heroBannerImage = page?.heroBannerImage || '/banner.png';
     const heroHeading = page?.heroHeading || 'Trusted Leather Sourcing & Buying House';
     const heroText = page?.heroText || 'Leather Gateway helps international buyers source quality leather goods from reliable manufacturers, with support for product development, sampling, quality control, and export coordination.';
 
@@ -116,7 +117,7 @@ function Home() {
             <section className="hero-section">
                 <div className="hero-banner-wrapper">
                     <img
-                        src="/banner.png"
+                        src={resolveImageUrl(heroBannerImage, { width: 1920 })}
                         alt="Leather Gateway - Trusted Leather Sourcing & Buying House"
                         className="hero-banner-img"
                         fetchPriority="high"

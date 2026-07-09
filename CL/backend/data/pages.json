@@ -3,6 +3,7 @@
     "id": "home",
     "title": "Home",
     "slug": "",
+    "heroBannerImage": "/banner.png",
     "heroHeading": "Trusted Leather Sourcing & Buying House",
     "heroText": "Leather Gateway helps international buyers source quality leather goods from reliable manufacturers, with support for product development, sampling, quality control, and export coordination.",
     "sections": [
@@ -209,6 +210,7 @@
     "id": "contact",
     "title": "Contact Us",
     "slug": "contact-us",
+    "headerImage": "",
     "phone": "+92 331 444 7797",
     "phoneLabel": "Monday – Friday",
     "email": "info@leathergateway.com",

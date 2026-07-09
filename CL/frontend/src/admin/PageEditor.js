@@ -154,6 +154,75 @@ function PageEditor() {
                         </div>
                     )}
 
+                    {/* Hero Banner Image (Home page) */}
+                    {pageId === 'home' && (
+                        <div className="admin-form-group">
+                            <label>Hero Banner Image</label>
+                            <p style={{ color: '#888', fontSize: '13px', marginBottom: '8px' }}>
+                                This is the large banner image shown at the top of the home page.
+                            </p>
+                            <div style={{ display: 'flex', gap: '10px', alignItems: 'center', flexWrap: 'wrap' }}>
+                                <input
+                                    type="text"
+                                    value={formData.heroBannerImage || ''}
+                                    onChange={(e) => handleChange('heroBannerImage', e.target.value)}
+                                    placeholder="/banner.png"
+                                    style={{ flex: 1, minWidth: '200px' }}
+                                />
+                                <ImageUploadButton
+                                    onUpload={(url) => handleChange('heroBannerImage', url)}
+                                />
+                                {formData.heroBannerImage && (
+                                    <img
+                                        src={resolveImageUrl(formData.heroBannerImage)}
+                                        alt="Banner preview"
+                                        style={{ width: '120px', height: '60px', objectFit: 'cover', borderRadius: '4px', border: '1px solid #ddd' }}
+                                        onError={(e) => { e.target.style.display = 'none'; }}
+                                    />
+                                )}
+                            </div>
+                        </div>
+                    )}
+
+                    {/* Contact Page Header Image */}
+                    {pageId === 'contact' && (
+                        <div className="admin-form-group">
+                            <label>Contact Page Header Image</label>
+                            <p style={{ color: '#888', fontSize: '13px', marginBottom: '8px' }}>
+                                Optional background image for the contact page header. Leave empty to use the default solid background.
+                            </p>
+                            <div style={{ display: 'flex', gap: '10px', alignItems: 'center', flexWrap: 'wrap' }}>
+                                <input
+                                    type="text"
+                                    value={formData.headerImage || ''}
+                                    onChange={(e) => handleChange('headerImage', e.target.value)}
+                                    placeholder="Leave empty for default background"
+                                    style={{ flex: 1, minWidth: '200px' }}
+                                />
+                                <ImageUploadButton
+                                    onUpload={(url) => handleChange('headerImage', url)}
+                                />
+                                {formData.headerImage && (
+                                    <img
+                                        src={resolveImageUrl(formData.headerImage)}
+                                        alt="Header preview"
+                                        style={{ width: '120px', height: '60px', objectFit: 'cover', borderRadius: '4px', border: '1px solid #ddd' }}
+                                        onError={(e) => { e.target.style.display = 'none'; }}
+                                    />
+                                )}
+                            </div>
+                            {formData.headerImage && (
+                                <button
+                                    className="admin-btn admin-btn-secondary"
+                                    style={{ marginTop: '8px', padding: '4px 12px', fontSize: '13px' }}
+                                    onClick={() => handleChange('headerImage', '')}
+                                >
+                                    Clear Image
+                                </button>
+                            )}
+                        </div>
+                    )}
+
                     {/* Services/Products Section Items (Generic Array Editor) */}
                     {formData.sections && formData.sections.map((section, si) => (
                         <div key={si} className="admin-section-block">

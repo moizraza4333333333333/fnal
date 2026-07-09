@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import usePageData from '../hooks/usePageData';
 import useSettings from '../hooks/useSettings';
 import LoadingScreen from '../components/LoadingScreen';
+import resolveImageUrl from '../utils/resolveImageUrl';
 
 function Contact() {
     const { page, loading: pageLoading, error: pageError } = usePageData('contact');
@@ -66,12 +67,19 @@ function Contact() {
         );
     }
 
+    const headerImage = page?.headerImage || '';
+
     return (
         <>
             {/* Page Header */}
-            <section className="page-header">
+            <section className="page-header" style={headerImage ? {
+                backgroundImage: `linear-gradient(rgba(0,0,0,0.45), rgba(0,0,0,0.45)), url(${resolveImageUrl(headerImage, { width: 1920 })})`,
+                backgroundSize: 'cover',
+                backgroundPosition: 'center',
+                backgroundRepeat: 'no-repeat'
+            } : undefined}>
                 <div className="container">
-                    <h1>{page?.title || 'Contact us'}</h1>
+                    <h1 style={headerImage ? { color: '#fff' } : undefined}>{page?.title || 'Contact us'}</h1>
                 </div>
             </section>
 
