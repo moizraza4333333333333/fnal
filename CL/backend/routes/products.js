@@ -40,6 +40,36 @@ const defaultProducts = [
         ]
     },
     {
+        _id: 'prod_leather_belts',
+        title: 'LEATHER BELTS',
+        images: [
+            '/images/Updated belt/IMG-20250913-WA0032.jpg.jpeg',
+            '/images/Updated belt/IMG-20250913-WA0033.jpg.jpeg',
+            '/images/Updated belt/IMG-20250913-WA0034.jpg.jpeg',
+            '/images/Updated belt/IMG-20250913-WA0035.jpg.jpeg',
+            '/images/Updated belt/IMG-20250913-WA0037.jpg.jpeg',
+            '/images/Updated belt/IMG-20250913-WA0038.jpg.jpeg',
+            '/images/Updated belt/IMG-20250913-WA0039.jpg.jpeg',
+            '/images/Updated belt/IMG-20250913-WA0040.jpg.jpeg',
+            '/images/Updated belt/IMG-20250913-WA0041.jpg.jpeg',
+            '/images/Updated belt/IMG-20250913-WA0042.jpg.jpeg',
+            '/images/Updated belt/IMG-20250913-WA0043.jpg.jpeg',
+            '/images/Updated belt/IMG-20250913-WA0044.jpg.jpeg',
+            '/images/Updated belt/IMG-20250913-WA0045.jpg.jpeg'
+        ]
+    },
+    {
+        _id: 'prod_leather_jackets',
+        title: 'LEATHER JACKETS',
+        images: [
+            '/images/ipdated jackets/IMG-20260709-WA0028.jpg.jpeg',
+            '/images/ipdated jackets/IMG-20260709-WA0029.jpg.jpeg',
+            '/images/ipdated jackets/IMG-20260709-WA0031.jpg.jpeg',
+            '/images/ipdated jackets/IMG-20260709-WA0033.jpg.jpeg',
+            '/images/ipdated jackets/IMG-20260709-WA0034.jpg.jpeg'
+        ]
+    },
+    {
         _id: 'prod_7',
         title: 'LEATHER WALLETS',
         images: [
