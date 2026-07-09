@@ -1,0 +1,218 @@
+[
+  {
+    "id": "home",
+    "title": "Home",
+    "slug": "",
+    "heroHeading": "Trusted Leather Sourcing & Buying House",
+    "heroText": "Leather Gateway helps international buyers source quality leather goods from reliable manufacturers, with support for product development, sampling, quality control, and export coordination.",
+    "sections": [
+      {
+        "type": "services_icons",
+        "items": [
+          {
+            "icon": "/images/neve-marketing-icon-8.1.png",
+            "title": "Supplier Sourcing",
+            "desc": "Reliable supplier matching for leather goods, accessories, and custom product requirements."
+          },
+          {
+            "icon": "/images/neve-marketing-icon-4.1.webp",
+            "title": "Product Development",
+            "desc": "Technical experts ensuring every product development requirement is fulfilled with the highest standards."
+          },
+          {
+            "icon": "/images/neve-marketing-icon-11.png",
+            "title": "Pricing & Negotiation",
+            "desc": "Strategic pricing analysis and negotiation support to secure the best value for your leather sourcing needs."
+          },
+          {
+            "icon": "/images/neve-marketing-icon-10.webp",
+            "title": "Production Monitoring",
+            "desc": "End-to-end production tracking and monitoring to ensure timely delivery and adherence to specifications."
+          },
+          {
+            "icon": "/images/neve-marketing-icon-9.webp",
+            "title": "Quality Control",
+            "desc": "Multi-stage inspections and quality audits ensuring only approved consignments are shipped."
+          },
+          {
+            "icon": "/images/neve-marketing-icon-13.png",
+            "title": "Quality Audits",
+            "desc": "Comprehensive quality audits and compliance checks to maintain international standards."
+          }
+        ]
+      },
+      {
+        "type": "products_showcase",
+        "title": "Our Products ",
+        "desc": "We connect buyers with leather manufacturers for finished goods, accessories, sampling, and production follow-up.",
+        "items": [
+          {
+            "image": "https://leathergateway.com/wp-content/uploads/2024/05/neve-marketing-agency-15.webp",
+            "title": "Leather Belts & Accessories",
+            "desc": "Source belts, wallets, straps, trims, and leather accessories with material selection, sampling, and production coordination."
+          },
+          {
+            "image": "https://leathergateway.com/wp-content/uploads/2024/05/neve-marketing-agency-13.webp",
+            "title": "Leather Bags & Garments",
+            "desc": "Develop custom leather bags, jackets, small goods, and private-label products with reliable vendor follow-up."
+          }
+        ]
+      },
+      {
+        "type": "cta_banner",
+        "title": "Ready to Source Quality Leather?",
+        "desc": "Get in touch with us today and let's discuss your requirements.",
+        "buttonText": "Contact Us Now",
+        "buttonLink": "/contact-us"
+      }
+    ],
+    "updatedAt": "2026-07-07T10:41:58.800Z"
+  },
+  {
+    "id": "about",
+    "title": "About Us",
+    "slug": "about-us",
+    "sections": [
+      {
+        "type": "story",
+        "title": "Our Story",
+        "image": "http://localhost:5000/uploads/1783444801089-954686314.png",
+        "paragraphs": [
+          "Leather Gateway is a Pakistan-based buying house and sourcing partner specializing in leather and leather products. We connect international buyers and trusted manufacturers, ensuring quality, compliance, and transparency at every stage of the supply chain. Our expertise lies in product development, supplier management, inspections, and shipment monitoring, making us the trusted choice for buyers worldwide. At Leather Gateway, we don’t just source products—we build lasting business partnerships based on professionalism, reliability, and trust."
+        ]
+      },
+      {
+        "type": "values",
+        "title": "We are driven by values",
+        "desc": "Our values define who we are and how we work. At Leather Gateway, we prioritize integrity, creativity, and collaboration in everything we do.",
+        "items": [
+          {
+            "icon": "🎯",
+            "title": "Our Mission",
+            "desc": "To deliver results through creative strategies, cutting-edge technology, and a passion for excellence."
+          },
+          {
+            "icon": "👁️",
+            "title": "Our Vision",
+            "desc": "To be the leading leather buying house, connecting global buyers with premium leather manufacturers."
+          },
+          {
+            "icon": "🤝",
+            "title": "Integrity & Trust",
+            "desc": "Building meaningful relationships with our clients through transparency, honesty, and reliability."
+          }
+        ]
+      }
+    ],
+    "updatedAt": "2026-07-07T17:20:03.202Z"
+  },
+  {
+    "id": "services",
+    "title": "Our Services",
+    "slug": "our-services",
+    "heroTitle": "Services",
+    "heroLead": "We provide end-to-end solutions including supplier sourcing, competitive pricing and negotiation, production monitoring, and comprehensive quality audits – ensuring efficiency, reliability, and excellence at every stage.",
+    "flowItems": [
+      "Supplier Sourcing",
+      "Product Development",
+      "Production Tracking",
+      "In-Line Quality Control",
+      "Final Inspection & Reporting"
+    ],
+    "serviceItems": [
+      {
+        "number": "01",
+        "title": "Supplier Sourcing ",
+        "desc": "We are able to identify and connect with the most suitable vendors to meet our customers' sourcing needs."
+      },
+      {
+        "number": "02",
+        "title": "Negotiation",
+        "desc": "Through our in-depth knowledge of raw materials and innovative supply chain solutions we deliver competitive pricing."
+      },
+      {
+        "number": "03",
+        "title": "Product Development",
+        "desc": "Our technical experts ensure every product development requirement is fulfilled with highest standards."
+      },
+      {
+        "number": "04",
+        "title": "Production Monitoring",
+        "desc": "We seamlessly connect every stage of the supply chain from pre-production to delivery."
+      },
+      {
+        "number": "05",
+        "title": "Quality Assurance",
+        "desc": "Our QA process starts with supplier audits, followed by pre-production checks to minimize risks."
+      },
+      {
+        "number": "06",
+        "title": "Supplier Compliance",
+        "desc": "Our compliance department ensures adherence to international standards and customer requirements."
+      },
+      {
+        "number": "07",
+        "title": "test",
+        "desc": "prof"
+      }
+    ],
+    "updatedAt": "2026-07-08T03:59:37.871Z"
+  },
+  {
+    "id": "products",
+    "title": "Our Products",
+    "slug": "our-products",
+    "sectionTitle": "Products & Capabilities",
+    "sectionDesc": "We connect buyers with leather manufacturers for finished goods, accessories, sampling, and production follow-up.",
+    "items": [
+      {
+        "image": "https://leathergateway.com/wp-content/uploads/2024/05/neve-marketing-agency-15.webp",
+        "title": "Leather Belts & Accessories",
+        "desc": "Source belts, wallets, straps, trims, and leather accessories with material selection, sampling, and production coordination.",
+        "details": "We help you source premium leather belts, wallets, straps, trims, and accessories. Our team manages material selection, sampling, and full production coordination to ensure your specifications are met. From initial concept to approved sample, we help buyers coordinate specifications, materials, pricing, and production timelines.",
+        "gallery": [
+          "https://leathergateway.com/wp-content/uploads/2024/05/neve-marketing-agency-15.webp"
+        ]
+      },
+      {
+        "image": "https://leathergateway.com/wp-content/uploads/2024/05/neve-marketing-agency-13.webp",
+        "title": "Leather Bags & Garments",
+        "desc": "Develop custom leather bags, jackets, small goods, and private-label products with reliable vendor follow-up.",
+        "details": "Develop custom leather bags, jackets, small goods, and private-label products with reliable vendor follow-up. Sampling and material details are tracked closely before production begins. Our technical experts ensure every product development requirement is fulfilled with the highest standards.",
+        "gallery": [
+          "https://leathergateway.com/wp-content/uploads/2024/05/neve-marketing-agency-13.webp"
+        ]
+      },
+      {
+        "image": "https://leathergateway.com/wp-content/uploads/2024/05/neve-marketing-agency-10.webp",
+        "title": "Leather Wallets & Small Goods",
+        "desc": "Slim bifold, trifold, and RFID-blocking leather wallets. Crafted with precision stitching and premium materials.",
+        "details": "Premium quality leather wallets crafted from genuine leather. Available in various sizes, colors, and finishes. We offer slim bifold, trifold, and RFID-blocking options. All products are crafted with precision stitching and the finest materials sourced from trusted tanneries.",
+        "gallery": [
+          "https://leathergateway.com/wp-content/uploads/2024/05/neve-marketing-agency-10.webp"
+        ]
+      },
+      {
+        "image": "/images/neve-marketing-agency-01-150x150.webp",
+        "title": "Custom Leather Products",
+        "desc": "Private-label development, custom designs, and OEM manufacturing for your brand requirements.",
+        "details": "We specialize in private-label development and OEM manufacturing for brands worldwide. From custom designs to full production runs, our team ensures your vision is brought to life with exceptional quality and attention to detail.",
+        "gallery": [
+          "/images/neve-marketing-agency-01-150x150.webp"
+        ]
+      }
+    ],
+    "bottomNote": "Leather can also be supplied for making products like garments, upholstery, bags etc",
+    "updatedAt": "2026-07-07T17:15:00.000Z"
+  },
+  {
+    "id": "contact",
+    "title": "Contact Us",
+    "slug": "contact-us",
+    "phone": "+92 331 444 7797",
+    "phoneLabel": "Monday – Friday",
+    "email": "info@leathergateway.com",
+    "address": "Lahore, Pakistan",
+    "updatedAt": "2026-07-07T17:07:39.989Z"
+  }
+]

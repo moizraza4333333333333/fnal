@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import LoadingScreen from '../components/LoadingScreen';
+import usePageData from '../hooks/usePageData';
 import resolveImageUrl from '../utils/resolveImageUrl';
 
 const API_URL = process.env.REACT_APP_API_URL || '';
@@ -46,6 +47,8 @@ function Products() {
     const [products, setProducts] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
+    const { page } = usePageData('products');
+    const productBottomNote = page?.bottomNote || 'Leather can also be supplied for making products like garments, upholstery, bags etc';
 
     useEffect(() => {
         fetch(`${API_URL}/api/products`)
@@ -158,6 +161,14 @@ function Products() {
                     </a>
                 </div>
             </section>
+
+            {productBottomNote && (
+                <section className="product-bottom-note-section">
+                    <div className="container">
+                        <p className="product-bottom-note">{productBottomNote}</p>
+                    </div>
+                </section>
+            )}
         </>
     );
 }

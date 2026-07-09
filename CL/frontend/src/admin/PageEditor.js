@@ -400,6 +400,19 @@ function PageEditor() {
                         </div>
                     )}
 
+                    {/* Products bottom note */}
+                    {pageId === 'products' && (
+                        <div className="admin-form-group">
+                            <label>Bottom Note</label>
+                            <textarea
+                                rows="3"
+                                value={formData.bottomNote || ''}
+                                onChange={(e) => handleChange('bottomNote', e.target.value)}
+                                placeholder="Leather can also be supplied for making products like garments, upholstery, bags etc"
+                            />
+                        </div>
+                    )}
+
                     {/* Products Items */}
                     {formData.items && !formData.sections && formData.items.map((item, i) => (
                         <div key={i} className="admin-section-block">
