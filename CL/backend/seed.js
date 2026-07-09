@@ -109,7 +109,12 @@ async function seed() {
         throw err;
     } finally {
         client.release();
-        await pool.end();
+        // Only close the pool when run directly (node seed.js).
+        // When imported by the serverless function, the shared pool must stay open
+        // so subsequent API requests can use it.
+        if (require.main === module) {
+            await pool.end();
+        }
     }
 }
 
