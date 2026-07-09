@@ -151,6 +151,14 @@ function Products() {
                 />
             )}
 
+            {productBottomNote && (
+                <section className="product-bottom-note-section">
+                    <div className="container">
+                        <p className="product-bottom-note">{productBottomNote}</p>
+                    </div>
+                </section>
+            )}
+
             {/* CTA */}
             <section className="cta-banner">
                 <div className="container">
@@ -161,14 +169,6 @@ function Products() {
                     </a>
                 </div>
             </section>
-
-            {productBottomNote && (
-                <section className="product-bottom-note-section">
-                    <div className="container">
-                        <p className="product-bottom-note">{productBottomNote}</p>
-                    </div>
-                </section>
-            )}
         </>
     );
 }

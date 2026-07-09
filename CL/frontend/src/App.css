@@ -1301,23 +1301,21 @@ img {
 }
 
 .product-bottom-note-section {
-  padding: 0 0 70px;
+  padding: 50px 0;
   background: var(--nv-light-bg);
 }
 
 .product-bottom-note {
-  max-width: 980px;
+  max-width: 1000px;
   margin: 0 auto;
-  padding: 24px 28px;
-  border-left: 5px solid var(--nv-primary-accent);
-  border-radius: 16px;
-  background: #fff;
   color: var(--nv-text-color);
-  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.08);
-  font-size: 20px;
-  font-weight: 600;
-  line-height: 1.7;
+  font-family: 'Georgia', 'Times New Roman', serif;
+  font-size: 26px;
+  font-weight: 500;
+  font-style: italic;
+  line-height: 1.8;
   text-align: center;
+  letter-spacing: 0.3px;
 }
 
 /* Home Product Showcase */
