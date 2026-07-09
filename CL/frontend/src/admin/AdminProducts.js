@@ -12,6 +12,11 @@ function AdminProducts() {
     const [saving, setSaving] = useState(false);
     const [message, setMessage] = useState('');
 
+    // --- Bottom Note (Products page) ---
+    const [bottomNote, setBottomNote] = useState('');
+    const [savingNote, setSavingNote] = useState(false);
+    const [pageData, setPageData] = useState(null);
+
     // --- Add New Product ---
     const [showAddForm, setShowAddForm] = useState(false);
     const [newTitle, setNewTitle] = useState('');
@@ -37,7 +42,48 @@ function AdminProducts() {
             .catch(() => setLoading(false));
     }, [token]);
 
-    useEffect(() => { loadProducts(); }, [loadProducts]);
+    const loadPageData = useCallback(() => {
+        fetch(`${API_URL}/api/pages/products`, {
+            headers: { Authorization: `Bearer ${token}` }
+        })
+            .then(res => res.json())
+            .then(data => {
+                if (data.success) {
+                    setPageData(data.data);
+                    setBottomNote(data.data.bottomNote || '');
+                }
+            })
+            .catch(() => { });
+    }, [token]);
+
+    useEffect(() => { loadProducts(); loadPageData(); }, [loadProducts, loadPageData]);
+
+    const saveBottomNote = async () => {
+        setSavingNote(true);
+        setMessage('');
+        try {
+            const res = await fetch(`${API_URL}/api/pages/products`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: `Bearer ${token}`
+                },
+                body: JSON.stringify({
+                    ...pageData,
+                    bottomNote
+                })
+            });
+            const data = await res.json();
+            if (data.success) {
+                setMessage('Bottom note saved!');
+            } else {
+                setMessage('Error saving note: ' + data.message);
+            }
+        } catch (err) {
+            setMessage('Error saving note');
+        }
+        setSavingNote(false);
+    };
 
     const optimizeImageBeforeUpload = (file) => {
         if (!file.type.startsWith('image/') || file.type === 'image/svg+xml' || file.type === 'image/gif') {
@@ -444,6 +490,28 @@ function AdminProducts() {
                             )}
                         </div>
                     ))}
+                </div>
+
+                {/* ===== BOTTOM NOTE ===== */}
+                <div className="admin-product-form" style={{ marginTop: '30px' }}>
+                    <h3>Product Page Bottom Note</h3>
+                    <p style={{ color: '#888', fontSize: '14px', marginBottom: '12px' }}>
+                        This text appears at the bottom of the Products page, before the "Custom Orders Welcome" banner.
+                    </p>
+                    <div className="admin-field">
+                        <label>Bottom Note Text</label>
+                        <textarea
+                            rows="3"
+                            value={bottomNote}
+                            onChange={(e) => setBottomNote(e.target.value)}
+                            placeholder="Leather can also be supplied for making products like garments, upholstery, bags etc"
+                        />
+                    </div>
+                    <div className="admin-form-actions">
+                        <button className="admin-btn admin-btn-primary" onClick={saveBottomNote} disabled={savingNote}>
+                            {savingNote ? 'Saving...' : 'Save Note'}
+                        </button>
+                    </div>
                 </div>
             </main>
         </div>
